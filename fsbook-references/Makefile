@@ -82,10 +82,10 @@ out/preface.tex: preface.md
 	-o out/preface.tex preface.md
 	# sed -i -e '1s/chapter{/chapter*{/' preface.tex
 
-pdf: $(SRC) out/preface.tex
+pdf: $(SRC) out/preface.tex cover.tex cover-back.tex
 
 	$(PANDOC) -s --toc --variable documentclass="report" \
-	--variable book="FreeSWITCH案例大全" \
+	--variable book="FreeSWITCH参考手册" \
 	--template cover.tex \
 	--number-sections \
 	--latex-engine=xelatex \
