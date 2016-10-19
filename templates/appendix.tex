@@ -1,0 +1,315 @@
+\documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$lang$,$endif$CJKutf8]{$documentclass$}
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt
+\usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+\usepackage{float}
+\usepackage{fontspec}
+\newfontfamily\zhfont[BoldFont=Adobe Heiti Std]{Adobe Song Std}
+\newfontfamily\zhpunctfont{Adobe Song Std}
+\setmainfont{Times New Roman}
+\usepackage{indentfirst}
+\usepackage{zhspacing}
+\zhspacing
+
+% \usepackage[papersize={19cm, 23.6cm},text={15cm, 18.6cm}]{geometry}
+% \usepackage[text={15cm, 18.6cm}]{geometry}
+% \addtolength{\oddsidemargin}{-0.6cm}
+% \addtolength{\evensidemargin}{0.4cm}
+
+\usepackage{longtable}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+% \renewcommand\thechapter{}
+\usepackage{fancyvrb}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 定义了自己的verbatim环境，并且简写为myv
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DefineVerbatimEnvironment{verbatim}{Verbatim}
+{frame=none,
+baselinestretch=1,
+fontsize=\small,
+xleftmargin=5pt,
+xrightmargin=5pt,
+framesep=5mm,
+numbers=left,
+samepage=true
+}
+
+% \usepackage{perpage} %the perpage package
+% \MakePerPage{footnote} %the perpage package command
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[CO,CE]{FreeSWITCH权威指南（附录）}
+\fancyfoot[C]{------------ 版权所有，侵权必究 -----------}
+% \fancyfoot[C]{------------ D R A F T -- Please keep this secret!! ----------}
+% \fancyfoot[C]{------------ 草稿\quad保密\quad保留所有权利------------}
+\fancyfoot[RO, LE] {\thepage}
+\fancyhead[LE,RO]{\chaptermark}
+\fancyhead[LO,RE]{\sectionmark}
+
+\renewcommand{\contentsname}{目\quad 录}
+\renewcommand\listfigurename{插图目录}
+\renewcommand\listtablename{表格目录}
+% \renewcommand\refname{参考文献}
+\renewcommand\indexname{索引}
+\renewcommand\figurename{图}
+\renewcommand\tablename{表}
+\renewcommand\abstractname{摘要}
+\renewcommand\partname{部分}
+\renewcommand\appendixname{附录}
+\renewcommand\today{\number\year年\number\month月\number\day日}
+\providecommand{\CJKnumber}[1]{\ifcase#1\or{一}\or{二}\or{三}\or{四}\or{五}\or{六}\or{七}\or{八}\or{九}\or{十}\or{十一}\or{十二}\or{十三}\or{十四}\or{十五}\or{十六}\or{十七}\or{十八}\or{十九}\or{二十}\or{二十一}\or{二十二}\or{二十三}\or{二十四}\or{二十五}\or{二十六}\or{二十七}\or{二十八}\or{二十九}\or{三十}\fi}
+
+% \renewcommand{\thesection}{\Alph{section}}
+
+\setcounter{chapter}{4}
+\usepackage{titlesec}
+\titleformat{\chapter}{\Huge\bfseries}{附录\,\Alph{chapter}\,}{1em}{}
+\renewcommand{\thechapter}{\Alph{chapter}}
+
+\usepackage{fancyvrb}
+\fvset{fontsize=\footnotesize}
+\fvset{xleftmargin=0.8cm}
+\fvset{frame=lines,framerule=1pt}
+\RecustomVerbatimEnvironment{verbatim}{Verbatim}{}
+
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+% use microtype if available
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[utf8]{inputenc}
+$if(euro)$
+  \usepackage{eurosym}
+$endif$
+\else % if luatex or xelatex
+  \usepackage{fontspec}
+  \ifxetex
+    \usepackage{xltxtra,xunicode}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+$if(mainfont)$
+    \setmainfont{$mainfont$}
+$endif$
+$if(sansfont)$
+    \setsansfont{$sansfont$}
+$endif$
+$if(monofont)$
+    \setmonofont{$monofont$}
+$endif$
+$if(mathfont)$
+    \setmathfont{$mathfont$}
+$endif$
+\fi
+$if(geometry)$
+\usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
+$endif$
+$if(natbib)$
+\usepackage{natbib}
+\bibliographystyle{plainnat}
+$endif$
+$if(biblatex)$
+\usepackage{biblatex}
+$if(biblio-files)$
+\bibliography{$biblio-files$}
+$endif$
+$endif$
+$if(listings)$
+\usepackage{listings}
+$endif$
+$if(lhs)$
+\lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
+$endif$
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+$if(verbatim-in-note)$
+\usepackage{fancyvrb}
+$endif$
+$if(fancy-enums)$
+% Redefine labelwidth for lists; otherwise, the enumerate package will cause
+% markers to extend beyond the left margin.
+\makeatletter\AtBeginDocument{%
+  \renewcommand{\@listi}
+    {\setlength{\labelwidth}{4em}}
+}\makeatother
+\usepackage{enumerate}
+$endif$
+$if(tables)$
+\usepackage{ctable}
+\usepackage{float} % provides the H option for float placement
+$endif$
+$if(graphics)$
+\usepackage{graphicx}
+% We will generate all images so they have a width \maxwidth. This means
+% that they will get their normal width if they fit onto the page, but
+% are scaled down if they would overflow the margins.
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+\else\Gin@nat@width\fi}
+\makeatother
+\let\Oldincludegraphics\includegraphics
+\renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=\maxwidth]{#1}}
+$endif$
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={$author-meta$},
+            pdftitle={$title-meta$},
+            colorlinks=true,
+            urlcolor=$if(urlcolor)$$urlcolor$$else$blue$endif$,
+            linkcolor=$if(linkcolor)$$linkcolor$$else$magenta$endif$,
+            pdfborder={0 0 0}}
+$if(links-as-notes)$
+% Make links footnotes instead of hotlinks:
+\renewcommand{\href}[2]{#2\footnote{\url{#1}}}
+$endif$
+$if(strikeout)$
+\usepackage[normalem]{ulem}
+% avoid problems with \sout in headers with hyperref:
+\pdfstringdefDisableCommands{\renewcommand{\sout}{}}
+$endif$
+\setlength{\parindent}{2em}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+$if(numbersections)$
+$else$
+\setcounter{secnumdepth}{0}
+$endif$
+$if(verbatim-in-note)$
+\VerbatimFootnotes % allows verbatim text in footnotes
+$endif$
+$if(lang)$
+\ifxetex
+  \usepackage{polyglossia}
+  \setmainlanguage{$mainlang$}
+\else
+  \usepackage[$lang$]{babel}
+\fi
+$endif$
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+$if(title)$
+\title{$title$}
+$endif$
+\author{$for(author)$$author$$sep$ \and $endfor$}
+\date{$date$}
+
+\begin{document}
+% \begin{CJK}{UTF8}{gbsn}
+
+%% start ncip
+\newcommand{\thetitle}{FreeSWITCH权威指南（附录）}
+\newcommand{\theauthor}{杜金房}
+\newcommand{\theauthors}{杜金房 \quad 张令考}
+\newcommand{\thepublisher}{版权所有，侵权必究}
+
+
+\thispagestyle{empty}
+
+\begin{center}
+	{\Huge \bf \thetitle\\[1em]}
+  {\Large\bf \theauthors \quad\\[2em]}
+\end{center}
+
+\vfill
+\begin{center}
+	\Large{\bf \thepublisher}
+\end{center}
+
+
+\newpage
+
+\chapter*{}
+
+本文档是《FreeSWITCH 权威指南》(ISBN 978-7-111-46626-0)一书的电子版附录。由于原书 太“厚”了，因此单独将这一部分以电子版形式发布。
+
+本文档版权完全归作者所有，仅供购买了《FreeSWITCH 权威指 南》实体书的读者使用，严禁任何形式的侵权行为！
+
+本书网站：\href{http://book.dujinfang.com}{book.dujinfang.com} 。
+
+\newpage
+
+$if(title)$
+\maketitle
+$endif$
+
+$for(include-before)$
+$include-before$
+
+$endfor$
+$if(toc)$
+{
+\hypersetup{linkcolor=blue}
+\tableofcontents
+}
+$endif$
+$body$
+
+\newpage
+\chapter*{写在最后}
+
+在笔者及出版社编辑和工作人员的共同努力下，本书终于要和广大读者见面了。欣慰之余，也算是给经历了漫长的等待时间的读者一个交代吧。
+
+本书的写作时间跨度较长，而FreeSWITCH又更新太快，以至于有些章节都先后修改了好几遍。尤其是FreeSWITCH自去年起分成了两个分支，兼顾两个分支无疑大大增加了写作的难度。本书截稿后到出版前的这段时间，FreeSWITCH又有了很大的变化，使我们多少有些被动。不过，令人高兴的是，FreeSWITCH在三天前发布了1.4.4版---这是FreeSWITCH 1.4自去年发布以来的第一个正式版！同时，这也意味着，FreeSWITCH自1.2版以来巨大变化的节奏终于可以消停一会儿了。这也使得笔者在本书即将面市之即，还有机会在电子版附录里写点东西。
+
+FreeSWITCH现在有两个版本---1.2版和1.4版。它们之间的最大区别就是后者支持WebRTC。为了支持WebRTC，FreeSWITCH核心代码也进行了一系列的重构，这些内容都已经涵盖在本书里了。而在本书截稿之后FreeSWITCH中最大的变化就是对FS-353（\href{http://jira.freeswitch.org/browse/FS-353}{jira.freeswitch.org/browse/FS-353}）的支持。事情还得从多年前说起---在FreeSWITCH中，为了避免重复发明轮子，使用了很多的第三方库。最初大部分第三方库的代码也放在FreeSWITCH的代码库中，静态编译连接，这样非常易于从源代码进行编译；而FS-353指出，这种方式不利于将FreeSWITCH打包加入各发行版（典型的如不同的Linux发行套件），因而最新的FreeSWITCH不再使用自己代码库中的第三方代码，而是更多地依赖于操作系统提供的第三方库。现在，如果需要编译最新的FreeSWITCH代码，除了按第3章描述的安装依赖库外，还需要安装更多的依赖库。当然，它也会带来很多好处，其中最重要的一点就是FreeSWITCH有望进入各发行版，而普通人员将再也不需要从源代码编译安装，而是可以直接使用发行版提供的工具如apt-get或yum等来安装FreeSWITCH了。关于这一点更详细的解释请参考我专门写的文章（\href{http://zhuanlan.zhihu.com/freeswitch/19746509}{zhuanlan.zhihu.com/freeswitch/19746509}），在此，就不赘述了。
+
+在FreeSWITCH1.2版开发时，大部分是基于CentOS 5的，而随着时间的推移，CentOS 5已经老去（官方已停止支持），而新的CentOS 6一直有一些性能问题（可能到现在已经解决了），因而FreeSWITCH的开发者们在开发1.4版时都纷纷转向了Debian 7（同样老去的还有Debian 6）。所以，1.2版适于CentOS 5及Debian 6，而1.4版本最好是在Debian 7或CentOS 6上运行\footnote{当然，这并不是说1.4版不能在CentOS 5及Debian 6上运行，只是，需要费点劲，参见\href{https://confluence.freeswitch.org/display/FREESWITCH/CentOS+5}{https://confluence.freeswitch.org/display/FREESWITCH/CentOS+5} 。}。当然，除Linux外，1.4版还支持Windows、Mac OS X、BSD系列、Solaris等多种操作系统。
+
+在本书写作时，就最大程度地兼顾了1.2版和1.4版。除了上面讲的几点老需要注意外，本书讲的内容都适合两个版本\footnote{当然，除了有些特性（如WebRTC）仅在1.4版上存在。}。因而，本书的内容在相当长的时间内都不会过时。当然，如果读者读完本书，对FreeSWITCH就应该了如只掌了，那时候如果再遇到什么问题，也都可以很容易地解决了。
+
+除代码外，FreeSWITCH的文档系统也将由\href{http://wiki.freeswitch.org}{wiki.freeswithc.org}切换到\href{http://confluence.freeswitch.org}{confluence.freeswitch.org}，后者将提供更好的SSO（单点登录）以及更专业的文档，但前者也将在一定时期内以只读的形式继续存在，以便读者参考。
+
+无论如何，本书的在线站点（\href{http://book.dujinfang.com}{book.dujinfang.com}）都会有本书最新的更新以及勘误等，也欢迎广大读者订阅微信公众社区“FreeSWITCH-CN”获取更多更及时的信息。
+
+\bigskip
+\vfill
+
+　　　　　　　　　　　　　　　　　　　　　　　　　　　 　杜金房/2014年5月26日于烟台
+
+\chapter*{}
+
+
+THIS PAGE INTENTIONALLY LEFT BLANK.
+
+$if(natbib)$
+$if(biblio-files)$
+$if(biblio-title)$
+$if(book-class)$
+\renewcommand\bibname{$biblio-title$}
+$else$
+\renewcommand\refname{$biblio-title$}
+$endif$
+$endif$
+\bibliography{$biblio-files$}
+
+$endif$
+$endif$
+$if(biblatex)$
+\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
+
+$endif$
+
+$for(include-after)$
+$include-after$
+
+$endfor$
+
+
+% \end{CJK}
+\end{document}

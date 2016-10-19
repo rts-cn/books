@@ -1,0 +1,373 @@
+\documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$lang$,$endif$CJKutf8,twoside,openright]{$documentclass$}
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt minus 0.1pt
+\usepackage[top=1in,bottom=1in,left=1.25in,right=1.25in]{geometry}
+\usepackage{float}
+\usepackage{fontspec}
+\newfontfamily\zhfont[BoldFont=Adobe Heiti Std]{Adobe Song Std}
+\newfontfamily\zhpunctfont{Adobe Song Std}
+\setmainfont{Times New Roman}
+\usepackage{indentfirst}
+\usepackage{zhspacing}
+\zhspacing
+
+% \usepackage[papersize={19cm, 23.6cm},text={15cm, 18.6cm}]{geometry}
+% \usepackage[text={15cm, 18.6cm}]{geometry}
+% \addtolength{\oddsidemargin}{-0.6cm}
+% \addtolength{\evensidemargin}{0.4cm}
+
+\usepackage{longtable}
+\usepackage{indentfirst}
+\setlength{\parindent}{2em}
+% \renewcommand\thechapter{}
+\usepackage{fancyvrb}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 定义了自己的verbatim环境，并且简写为myv
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DefineVerbatimEnvironment{verbatim}{Verbatim}
+{frame=none,
+baselinestretch=1,
+fontsize=\small,
+xleftmargin=5pt,
+xrightmargin=5pt,
+framesep=5mm,
+numbers=left,
+samepage=true
+}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhead{}
+\fancyfoot{}
+\fancyhead[CO,CE]{FreeSWITCH培训教材}
+\fancyfoot[C]{------------ D R A F T -- Please keep this secret!! ----------}
+% \fancyfoot[C]{------------ 草稿\quad保密\quad保留所有权利------------}
+\fancyfoot[RO, LE] {\thepage}
+\fancyhead[LE,RO]{\chaptermark}
+\fancyhead[LO,RE]{\sectionmark}
+
+\renewcommand{\contentsname}{目\quad 录}
+\renewcommand\listfigurename{插图目录}
+\renewcommand\listtablename{表格目录}
+% \renewcommand\refname{参考文献}
+\renewcommand\indexname{索引}
+\renewcommand\figurename{图}
+\renewcommand\tablename{表}
+\renewcommand\abstractname{摘要}
+\renewcommand\partname{部分}
+\renewcommand\appendixname{附录}
+\renewcommand\today{\number\year年\number\month月\number\day日}
+\providecommand{\CJKnumber}[1]{\ifcase#1\or{一}\or{二}\or{三}\or{四}\or{五}\or{六}\or{七}\or{八}\or{九}\or{十}\or{十一}\or{十二}\or{十三}\or{十四}\or{十五}\or{十六}\or{十七}\or{十八}\or{十九}\or{二十}\or{二十一}\or{二十二}\or{二十三}\or{二十四}\or{二十五}\or{二十六}\or{二十七}\or{二十八}\or{二十九}\or{三十}\fi}
+
+\renewcommand{\chaptername}{第\CJKnumber{\thechapter}章}
+% \renewcommand{\chaptername}{}
+
+\usepackage{titlesec}
+% \titleformat{\chapter}{\centering\Huge\bfseries}{第\,\thechapter\,章}{1em}{}
+% \titleformat{\chapter}{\centering\Huge\bfseries}{第\CJKnumber{\thechapter}章}{1em}{}
+% \titleformat{\chapter}{\centering\Huge\bfseries}{第\,\CJKnumber{\thechapter}\,章}{1em}{}
+\titleformat{\chapter}{\centering\Huge\bfseries}{第\,\thechapter\,章}{1em}{}
+
+\usepackage{lmodern}
+\usepackage{amssymb,amsmath}
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+% use microtype if available
+\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[utf8]{inputenc}
+$if(euro)$
+  \usepackage{eurosym}
+$endif$
+\else % if luatex or xelatex
+  \usepackage{fontspec}
+  \ifxetex
+    \usepackage{xltxtra,xunicode}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+$if(mainfont)$
+    \setmainfont{$mainfont$}
+$endif$
+$if(sansfont)$
+    \setsansfont{$sansfont$}
+$endif$
+$if(monofont)$
+    \setmonofont{$monofont$}
+$endif$
+$if(mathfont)$
+    \setmathfont{$mathfont$}
+$endif$
+\fi
+$if(geometry)$
+\usepackage[$for(geometry)$$geometry$$sep$,$endfor$]{geometry}
+$endif$
+$if(natbib)$
+\usepackage{natbib}
+\bibliographystyle{plainnat}
+$endif$
+$if(biblatex)$
+\usepackage{biblatex}
+$if(biblio-files)$
+\bibliography{$biblio-files$}
+$endif$
+$endif$
+$if(listings)$
+\usepackage{listings}
+$endif$
+$if(lhs)$
+\lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
+$endif$
+$if(highlighting-macros)$
+$highlighting-macros$
+$endif$
+$if(verbatim-in-note)$
+\usepackage{fancyvrb}
+$endif$
+$if(fancy-enums)$
+% Redefine labelwidth for lists; otherwise, the enumerate package will cause
+% markers to extend beyond the left margin.
+\makeatletter\AtBeginDocument{%
+  \renewcommand{\@listi}
+    {\setlength{\labelwidth}{4em}}
+}\makeatother
+\usepackage{enumerate}
+$endif$
+$if(tables)$
+\usepackage{ctable}
+\usepackage{float} % provides the H option for float placement
+$endif$
+$if(graphics)$
+\usepackage{graphicx}
+% We will generate all images so they have a width \maxwidth. This means
+% that they will get their normal width if they fit onto the page, but
+% are scaled down if they would overflow the margins.
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+\else\Gin@nat@width\fi}
+\makeatother
+\let\Oldincludegraphics\includegraphics
+\renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=\maxwidth]{#1}}
+$endif$
+\ifxetex
+  \usepackage[setpagesize=false, % page size defined by xetex
+              unicode=false, % unicode breaks when used with xetex
+              xetex]{hyperref}
+\else
+  \usepackage[unicode=true]{hyperref}
+\fi
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            pdfauthor={$author-meta$},
+            pdftitle={$title-meta$},
+            colorlinks=true,
+            urlcolor=$if(urlcolor)$$urlcolor$$else$blue$endif$,
+            linkcolor=$if(linkcolor)$$linkcolor$$else$magenta$endif$,
+            pdfborder={0 0 0}}
+$if(links-as-notes)$
+% Make links footnotes instead of hotlinks:
+\renewcommand{\href}[2]{#2\footnote{\url{#1}}}
+$endif$
+$if(strikeout)$
+\usepackage[normalem]{ulem}
+% avoid problems with \sout in headers with hyperref:
+\pdfstringdefDisableCommands{\renewcommand{\sout}{}}
+$endif$
+\setlength{\parindent}{2em}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+$if(numbersections)$
+$else$
+\setcounter{secnumdepth}{0}
+$endif$
+$if(verbatim-in-note)$
+\VerbatimFootnotes % allows verbatim text in footnotes
+$endif$
+$if(lang)$
+\ifxetex
+  \usepackage{polyglossia}
+  \setmainlanguage{$mainlang$}
+\else
+  \usepackage[$lang$]{babel}
+\fi
+$endif$
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+$if(title)$
+\title{$title$}
+$endif$
+\author{$for(author)$$author$$sep$ \and $endfor$}
+\date{$date$}
+
+\begin{document}
+% \begin{CJK}{UTF8}{gbsn}
+
+%% start ncip
+\newcommand{\thetitle}{FreeSWITCH培训教材}
+\newcommand{\theauthor}{杜金房}
+\newcommand{\theauthors}{杜金房}
+\newcommand{\thepublisher}{FreeSWITCH-CN}
+
+\chapter*{}
+\thispagestyle{empty}
+
+\begin{center}
+	{\Huge \bf \thetitle\\[1em]}
+	{\Large\bf \theauthors \quad 著\\[2em]}
+\end{center}
+
+\vfill
+\begin{center}
+	\Large{\bf \thepublisher} \quad 内部培训教材
+\end{center}
+
+\newpage
+\thispagestyle{empty}
+\vspace*{2cm}
+\noindent\quad \textbf{图书不在版编目（NCIP）数据}
+
+\vspace{1em}
+
+\noindent\quad \thetitle\ / \theauthor\ 著\ /\ 2012.6
+
+% \noindent\quad ISBN 7-DU-XXXXXX-X
+
+% \vspace{8cm}
+
+\bigskip
+
+\vfill
+
+{\bf \thetitle}
+
+\begin{tabular}{cl}
+	\hline
+	\bf 作\qquad 者	&	\theauthor\\
+	\bf 封面设计	&	布肯尼[美]\\
+	\bf 校\qquad 对 &	高\ \ 超 \\
+	\bf 排\qquad 版 &	\theauthor \\
+	\bf 开\qquad 本 &	1890毫米 × 2360 毫米 \\
+	\bf 印\qquad 张 &	7.5 \\
+	\bf 印\qquad 数 &	100 \\
+  \bf 版\qquad 数 & 2012年6月第1版 2013年12月第0次印刷 \\
+	\bf 电子邮箱	 &	book@freeswitch.org.cn \\
+	\hline
+\end{tabular}
+
+\begin{center}
+	{\bf 版权所有，侵权必究}
+\end{center}
+
+%% end cip
+
+\newpage
+
+% \begin{figure}[ht]
+% \centering
+% \Oldincludegraphics[width=\textwidth]{../images/pre-1-b.jpg}
+% \caption{FreeSWITCH-CN第一届开发者沙龙，北京中关村，车库咖啡，2012年6月}
+% \end{figure}
+
+% \begin{figure}[ht]
+% \centering
+% \Oldincludegraphics[width=\textwidth]{../images/cluecon2012-1-b.jpg}
+% \caption{ClueCon2012现场，美国芝加哥，2012年8月}
+% \end{figure}
+
+% \begin{figure}[ht]
+% \centering
+% \Oldincludegraphics[width=\textwidth]{../images/tony-b.jpg}
+% \caption{本书作者（右）与FreeSWITCH作者Anthony Minessale（左）合影，ClueCon 2012}
+% \end{figure}
+
+% \newpage
+
+$if(title)$
+\maketitle
+$endif$
+
+$for(include-before)$
+$include-before$
+
+$endfor$
+$if(toc)$
+{
+\hypersetup{linkcolor=blue}
+\tableofcontents
+}
+$endif$
+$body$
+
+$if(natbib)$
+$if(biblio-files)$
+$if(biblio-title)$
+$if(book-class)$
+\renewcommand\bibname{$biblio-title$}
+$else$
+\renewcommand\refname{$biblio-title$}
+$endif$
+$endif$
+\bibliography{$biblio-files$}
+
+$endif$
+$endif$
+$if(biblatex)$
+\printbibliography$if(biblio-title)$[title=$biblio-title$]$endif$
+
+$endif$
+
+$for(include-after)$
+$include-after$
+
+$endfor$
+
+\newpage
+
+{\large \bf 作者简介}
+
+杜金房（Seven Du），男。FreeSWITCH-CN中文社区创始人，FreeSWITCH代码贡献者。
+
+2001年毕业于烟台大学，同年进入烟台电信工作，负责程序交换机、网管系统维护，并开发了大量网管及办公系统。经历了电信改通信、通信改网通等一系列中国电信业的分拆合并变革。
+
+2008到北京，加入Idapted，开始使用FreeSWTICH做网络一对一教学系统。
+
+2009年创办FreeSWITCH-CN（www.freeswitch.org.cn）开源软件中国社区。
+
+2011年创办北京信悦通科技有限公司（x-y-t.com），提供FreeSWITCH培训、咨询服务、解决方案及商业支持。
+
+2011、2012及2013年，参加在美国芝加哥举办的ClueCon全球VoIP开发者大会，并做主题演讲。
+
+自2012年开始主办中国FreeSWITCH开发者沙龙，每年吸引很多业内人士参加。
+
+\newpage
+
+{\large \bf 专家推荐}
+
+FreeSWITCH是2005年的一个梦想，到现在为止已经近10年了。它从那时的一个由5个文件组成的概念性的测试程序成长为现在的50万行核心代码，另外还有其它300万行支持代码在外部的模块中。我非常兴奋地看到，我们的技术能够很快传达到1.3亿中国人，使得他们可以学习FreeSWITCH以及开源的电话技术。我希望这本新书能够使FreeSWITCH中文社区壮大和繁荣。我鼓励本书的每位读者加入在线的FreeSWITCH中文社区，一起成长，并一起见证我们如何向着同一个目标前进，使该项目以及全世界壮大成长。
+
+我在2008年第一次遇到Seven。从那以后他做了大量的工作——他竭尽所能学习了有关FreeSWITCH所有可能的技术，并贡献了很多的Bug报告及修复代码。甚至在他写这本书的研究中，还发现了至少5个Bug。没有他，我们可能永远也不能带给广大的中国读者对于理解FreeSWITCH而言如此重要的指导书。
+
+　　　　　　　　　　　　　　　　　　　Anthony Minissale II - FreeSWITCH的作者
+
+FreeSWITCH was first dreamed of in 2005, nearly 10 years ago.  Since then it has grown from a small 5-file proof-of-concept to over 500,000 lines of code with another 3,000,000 lines of supporting code in external libraries.  It’s exciting that we will soon be able to reach out to the 1.3 billion people in China and allow them to learn about FreeSWITCH and open source telephony.   I hope this new book allows a large Chinese community to flourish.  I encourage everyone who reads this book to join the Chinese FreeSWITCH community online and work together and see how we can make the project and the world grow by working on a common goal.
+
+I first met Seven in 2008 and ever since he has done a remarkable job of learning everything he could about FreeSWICH and contributing many fixes and bug reports.  He even found at least 5 bugs doing his research to write this book.  Without him, we would never be able to reach out to the Chinese people with such a comprehensive guide to understanding FreeSWITCH.
+
+　　　　　　　　　　　　　　　　　　　Anthony Minissale II - Author of FreeSWITCH
+
+
+FreeSWITCH是VoIP的未来。它更加灵活、强大，并且与现有系统比起来更加节省成本。FreeSWITCH已稳步成为先进的VoIP系统部署的必备系统。本书的作者是FreeSWITCH中国的权威，他会指导你如何使用FreeSWITCH。杜金房曾建立了第一个中国的FreeSWITCH系统，安装了最大的FreeSWITCH集群，并建立了FreeSWITCH中文社区。在中国的通信圈子里，没有人能比他更理解FreeSWITCH以及其内部的应用程序了。
+
+　　　　　　　　　　　　　　　　　　 Jonathan Palley - Spire公司CTO
+
+FreeSWITCH is the future of VoIP. More flexible, powerful and lower cost than existing systems, FreeSWITCH is steadily becoming the go-to system for advanced VoIP deployments.  This book teaches you how to use FreeSWITCH from the authority on FreeSWITCH in China.  Du JinFang built the first Chinese FreeSWITCH system, installed the largest deployment and has created the FreeSWITCH China community.  No one understands FreeSWITCH and its applications to China's communication landscape better.
+
+　　　　　　　　　　　　　　　　　　 Jonathan Palley - CTO of Spire Inc.
+
+
+\newpage
+
+% \end{CJK}
+\end{document}
