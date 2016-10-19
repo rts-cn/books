@@ -1,0 +1,15 @@
+/* This defines styles and classes used in the book */
+body { margin-left: 5%; margin-right: 5%; margin-top: 5%; margin-bottom: 5%; text-align: justify; font-size: 12px; }
+pre {background-color: #DDD;padding:10px;border-top:dashed #000 1px;border-bottom:dashed #000 1px; font-size: 8px;}
+code { font-family: monospace; }
+h1 { text-align: center; font-family:arial, sanserif, STHeiti;}
+h2 {font-family:arial, sanserif, STHeiti;}
+h3 {font-family:arial, sanserif, STHeiti;}
+h4 {font-family:arial, sanserif, STHeiti;}
+h5 {font-family:arial, sanserif, STHeiti;}
+h6 {font-family:arial, sanserif, STHeiti;}
+
+h1.title { }
+h2.author { }
+
+a {text-decoration: none;}
