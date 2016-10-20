@@ -55,6 +55,17 @@ nl -b a $@ | pbcopy
 	convert -gravity center -background white -extent 1200x700 autotools.png autotools-2.png
 
 
+插入图片可参考如下代码片断：
+
+```
+接着在命令控制台上输入以下命令，便会看到一辆小火车开过，如图\ref{fig:cluechoo}：
+
+     freeswitch> cluechoo
+
+![\label{fig:cluechoo}ClueChoo小火车](images/cluechoo.png)
+```
+
+
 ## 协作流程
 
 在多人写作过程中，可能有一些冲突。为避免不必要的冲突，我们建议使用如下流程：
