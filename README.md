@@ -96,7 +96,25 @@ nl -b a $@ | pbcopy
 
 	gcc -E mod_commands.c | grep ADD_API | sed -e 's/^[^,]*, "//' | sort | pbcopy
 
+生成APP列表：
+
+    gcc -E mod_dptools.c | grep ADD_APP | sed -e 's/^[^,]*, "//' | sort | pbcopy
+
+取得所有可能的通道变量：
+
+```
+cd src
+
+find . -name "*.c" -exec grep switch_channel_get_variable {} \; | sed -e 's/^.*switch_channel_get_variable[^,]*, *"*\([0-9a-zA-Z_]*\).*$/\1/' | sort | uniq
+
+find . -name "*.c" -exec grep switch_channel_get_variable {} \; | sed -e 's/^.*switch_channel_get_variable[^,]*, *"*\([0-9a-zA-Z_]*\).*$/\1/' | sort | uniq > /tmp/a.c
+
+在`a.c`加入`#include <switch_types.h>`
+
+gcc -Iinclude/ -E /tmp/a.c
+```
+
+
 ## 权益声明
 
 每个人的作品自己有版权。如果以后书能大卖，或许每个人都能获得一些收益，但是，不要指望写书挣钱，把这个过程更多的看作是一种贡献。与其计算每个人应该分多少钱，不如我们一起支持一个开源项目或捐赠一个公益事业。
-
