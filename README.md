@@ -79,6 +79,12 @@ nl -b a $@ | pbcopy
         rebase = true
 ```
 
+## Tips and Tricks
+
+生成API命令列表：
+
+	gcc -E mod_commands.c | grep ADD_API | sed -e 's/^[^,]*, "//' | sort | pbcopy
+
 ## 权益声明
 
 每个人的作品自己有版权。如果以后书能大卖，或许每个人都能获得一些收益，但是，不要指望写书挣钱，把这个过程更多的看作是一种贡献。与其计算每个人应该分多少钱，不如我们一起支持一个开源项目或捐赠一个公益事业。

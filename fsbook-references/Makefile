@@ -17,6 +17,7 @@ NAME=fsbook-references
 all: html pdf
 
 SRC=chapter1.md \
+	chapter2.md \
 	chapterX.md \
 	postface.md
 
