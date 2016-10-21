@@ -4,6 +4,8 @@
 
 很长时间以来，大家都希望有一个详细的FreeSWITCH参考书，于是，就有了本书。
 
+本书的目标是提供一个详细的参数参考。如果不是特别说明，本书的所有模块和参数基于FreeSWITCH 1.8版。
+
 如果你喜欢FreeSWITCH，你肯定喜欢本书。
 
 本书内容会不断更新，请关注本书的网站：<http://book.dujinfang.com> 。你也可以订阅FreeSWITCH-CN微信公众号以随时了解FreeSWITCH和本书动态。
