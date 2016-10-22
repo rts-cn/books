@@ -139,14 +139,16 @@ FreeSWITCH中有一个模块叫`mod_prefix`。这个模块默认是不加载的�
 
 发几个呼叫玩玩：
 
-    freeswitch> originate {prefix=13900000000}user/prefix &echo
-    [ERR] mod_sofia.c:4520 Invalid Gateway 'chinamobile'
+```bash
+freeswitch> originate {prefix=13900000000}user/prefix &echo
+[ERR] mod_sofia.c:4520 Invalid Gateway 'chinamobile'
 
-    freeswitch> originate {prefix=18600000000}user/prefix &echo
-    [ERR] mod_sofia.c:4520 Invalid Gateway 'chinaunicom'
+freeswitch> originate {prefix=18600000000}user/prefix &echo
+[ERR] mod_sofia.c:4520 Invalid Gateway 'chinaunicom'
 
-    freeswitch> originate {prefix=18605350000}user/prefix &echo
-    [ERR] mod_sofia.c:4520 Invalid Gateway 'test'
+freeswitch> originate {prefix=18605350000}user/prefix &echo
+[ERR] mod_sofia.c:4520 Invalid Gateway 'test'
+```
 
 从上述日志中可以看出，我们的呼叫全部失败了。那是因为我们只是在做实验并没有实际创建那些Gateway。但是，从出错信息看它确实生成了正确的指向Gateway的字符串。
 
