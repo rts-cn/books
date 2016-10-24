@@ -153,3 +153,96 @@ freeswitch> originate {prefix=18605350000}user/prefix &echo
 从上述日志中可以看出，我们的呼叫全部失败了。那是因为我们只是在做实验并没有实际创建那些Gateway。但是，从出错信息看它确实生成了正确的指向Gateway的字符串。
 
 课后作业：我们说`prefix`有时是一个用户，有时是一个通道变量，有时还是一个API，你都能正确地找到它们吗？
+
+
+## `leg_timeout`是怎么工作的？
+
+FreeSWITCH呼叫字符串可以用“`|`”隔开实现顺振，并可以通过`leg_timeout`控制第一路由的超时时间，如：
+
+```
+freeswitch> originate [leg_timeout=20]sofia/gateway/gw1/$dest_number|sofia/gateway/gw2/$dest_number
+```
+
+
+那这个20秒超时跟什么有关呢？我们做了一个实验：
+
+### 对方不返回100 Trying
+
+```
+
+freeswitch> bgapi originate [leg_timeout=20]sofia/internal/test@192.168.7.7|sofia/internal/test@sipsip.cn &echo
+
+send 1397 bytes to udp/[192.168.7.7]:5060 at 13:30:44.174430:
+   INVITE sip:test@192.168.7.7 SIP/2.0
+
+send 1393 bytes to udp/[121.40.231.235]:5080 at 13:31:05.038922:
+   INVITE sip:test@sipsip.cn SIP/2.0
+```
+
+其中，我们让超时时长为20秒，并且`192.168.7.7`是一个不通的IP地址，因此，第一个INVITE不会有任何响应，FreeSWITCH发送第二个INVITE的时间大约是20秒后。
+
+### 返回100 Trying，但不返回180
+
+为了能让对方返回100 Trying但不返回180，可以在对端FS上构造如下路由：
+
+```xml
+   <extension name="test">
+    <condition field="destination_number" expression="^sleep(.*)$">
+      <action application="sleep" data="$1"/>
+    </condition>
+   </extension>
+```
+
+接下来我们呼叫对端的FS `192.168.7.6`，对端会`sleep` 30秒后再返回：
+
+
+```
+bgapi originate [leg_timeout=20]sofia/internal/sleep30000@192.168.7.6|sofia/internal/test@sipsip.cn &echo
+
+
+send 1439 bytes to udp/[192.168.7.6] at 13:42:41.362829:
+   INVITE sip:sleep30000@192.168.7.6 SIP/2.0
+
+recv 400 bytes from udp/[192.168.7.6] at 13:42:41.363968:
+   SIP/2.0 100 Trying
+
+send 388 bytes to udp/[192.168.7.6] at 13:43:02.020060:
+   CANCEL sip:sleep30000@192.168.7.6 SIP/2.0
+
+send 1393 bytes to udp/[121.40.231.235]:5080 at 13:43:02.040098:
+   INVITE sip:test@sipsip.cn SIP/2.0
+```
+
+可以看出，FreeSWITCH在20秒后发了CANCEL终止了请求，并向第二个服务器`sipsip.cn`发起请求。
+
+
+### 让对端返回180，然后30s内不返回任何其它消息
+
+把们把对端的Dialplan修改如下：
+
+
+```xml
+      <action application="ring_ready" data=""/>
+      <action application="sleep" data="$1"/>
+```
+
+```
+send 1719 bytes to udp/[192.168.7.6] at 13:52:27.392158:
+   INVITE sip:sleep30000@192.168.7.6 SIP/2.0
+
+recv 400 bytes from udp/[192.168.7.6] at 13:52:27.395370:
+   SIP/2.0 100 Trying
+
+recv 1035 bytes from udp/[192.168.7.6] at 13:52:27.426464:
+   SIP/2.0 180 Ringing
+
+send 388 bytes to udp/[192.168.7.6] at 13:52:48.018667:
+   CANCEL sip:sleep30000@192.168.7.6 SIP/2.0
+
+send 1393 bytes to udp/[121.40.231.235]:5080 at 13:52:48.109543:
+   INVITE sip:test@sipsip.cn SIP/2.0
+```
+
+可见，FreeSWITCH即使收到了180，也会在20秒后发送CANCEL。
+
+FreeSWITCH只会在收到183（SDP）或200后才认为呼叫成功，不再尝试第二路由。读者可以自行尝试一下。
