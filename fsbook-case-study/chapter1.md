@@ -246,3 +246,42 @@ send 1393 bytes to udp/[121.40.231.235]:5080 at 13:52:48.109543:
 可见，FreeSWITCH即使收到了180，也会在20秒后发送CANCEL。
 
 FreeSWITCH只会在收到183（SDP）或200后才认为呼叫成功，不再尝试第二路由。读者可以自行尝试一下。
+
+## IP对接ACL
+
+在《FreeSWITCH互联互通》中讲过很多IP对接方式，但在实际环境中，对IP也需要认证，也就是说，你不仅知道哪些IP是可信的，更需要将这些IP关联到一个用户，以便对其进行计费、审计等。
+
+其实FreeSWITCH中已经有这样的认证机制。在用户目录中创建一个特殊用户，如，假设你的客户是`seven`：
+
+```xml
+<include>
+  <user id="seven" cidr="192.168.3.119/32">
+    <params>
+    </params>
+    <variables>
+      <variable name="accountcode" value="seven"/>
+      <variable name="user_context" value="default"/>
+      <variable name="effective_caller_id_name" value="seven"/>
+      <variable name="effective_caller_id_number" value="seven"/>
+    </variables>
+  </user>
+</include>
+```
+
+上述配置跟一般用户配置的区别就是多了一个`cidr`属性。CIDR是一种IP地址的表示方式，格式是“IP/掩码位数”，上述表示仅表示一个IP地址，如果写成“`192.168.3.119/24`”则表示整个“`192.168.3.0`”地址段。
+
+配置好以后，在FreeSWITCH中执行`reloadacl`，你可以看到类似以下的输出：
+
+```
+[NOTICE] switch_utils.c:545 Adding 192.168.3.119/32 (allow) [seven@192.168.3.119] to list domains
+```
+
+打个电话试试，所有来自“`192.168.3.119`”这个地址的呼叫都认为是`seven`发起的呼叫，不再进行Challenge验证：
+
+```
+[DEBUG] sofia.c:9715 IP 192.168.3.119 Approved by acl "domains[seven@192.168.3.119]". Access Granted.
+```
+
+当然，如果你想让对方透传主、被叫号码，只需把`effective_caller_id_name/number`注释掉就可以了。此外，你还可以将`user_context`设置成其它的值，让它走专门的路由（Dialplan Context）。
+
+SIP对接，就是这么简单。
