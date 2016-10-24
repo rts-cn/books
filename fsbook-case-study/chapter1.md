@@ -157,6 +157,8 @@ freeswitch> originate {prefix=18605350000}user/prefix &echo
 
 ## `leg_timeout`是怎么工作的？
 
+> Seven
+
 FreeSWITCH呼叫字符串可以用“`|`”隔开实现顺振，并可以通过`leg_timeout`控制第一路由的超时时间，如：
 
 ```
@@ -248,6 +250,8 @@ send 1393 bytes to udp/[121.40.231.235]:5080 at 13:52:48.109543:
 FreeSWITCH只会在收到183（SDP）或200后才认为呼叫成功，不再尝试第二路由。读者可以自行尝试一下。
 
 ## IP对接ACL
+
+> Seven
 
 在《FreeSWITCH互联互通》中讲过很多IP对接方式，但在实际环境中，对IP也需要认证，也就是说，你不仅知道哪些IP是可信的，更需要将这些IP关联到一个用户，以便对其进行计费、审计等。
 
