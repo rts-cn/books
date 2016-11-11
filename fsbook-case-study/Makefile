@@ -17,6 +17,7 @@ NAME=fsbook-case-study
 all: html pdf
 
 SRC=chapter1.md \
+	chapter-alwaysrun.md \
 	chapterX.md \
 	postface.md
 
