@@ -18,6 +18,7 @@ all: html pdf
 
 SRC=chapter1.md \
 	chapter-alwaysrun.md \
+	chapter2.md \
 	chapterX.md \
 	postface.md
 
