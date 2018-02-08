@@ -7,24 +7,7 @@
 
 源文件使用Markdown格式，排版使用Pandoc和Latex。参见[《我在Mac上的写作工具链》](http://mp.weixin.qq.com/s?__biz=MjM5MzIwMzExMg==&mid=222341648&idx=1&sn=1a6c4c69e57194153080050b352b8d2e&mpshare=1&scene=1&srcid=1019tXeqPF7qSccOsyBM0GK7#rd)。
 
-关于Markdown格式请参考已有的内容。欢迎大家配置好自己的Pandoc环境，但配置不起来也没什么问题。我们会有专人负责格式。
-
-## Pandoc在Windows上的用法
-
-Pandoc可将Markdown格式的文件转换成HTML形式（参考`/fsbooks/fsbook-case-study/html.bat`文件）。
-
-在Windows上成功配置Pandoc后，进入命令行界面。转到`/fsbooks/fsbook-case-study/`目录下，编辑`html.bat`文件，并在命令行下运行`html.bat`，即可生成相应的`html`文件。
-html.bat文件内容如下：
-
-```
-xcopy /y images out\images\
-pandoc -o out/fsbook-case-study.html  -V book="FreeSWITCH案例大全" -V title="FreeSWITCH案例大全"  --template cover.html preface.md chapter1.md chapterx.md postface.md
-```
-
-* 第一条指令为：复制相关图片到生成路径下。（章节中调用的图片和生成的html文件在一个文件夹下，比如都在out/下）
-* 第二条指令为：将`.md`文件依照`cover.html`格式转换并输出到`out`文件夹下，并命名为`fsbook-case-study.html`。
-* 执行`.bat`文件如果出现标题文字乱码，主要是编码格式不对，可先用记事本编辑`.bat`文件，保存时编码选择“ANSI”即可。
-* `--template cover.html`后面可以随时添加章节`chapterX.md`转换
+关于Markdown格式请参考已有的内容。欢迎大家配置好自己的Pandoc环境，我们推荐使用我们的`docker`镜像生成PDF，这样可以检查自己的Markdown语法等。但配置不起来也没什么问题。我们会有专人负责格式。
 
 
 ## 《FreeSWITCH案例大全》
@@ -131,6 +114,51 @@ find . -name "*.c" -exec grep switch_channel_get_variable {} \; | sed -e 's/^.*s
 
 gcc -Iinclude/ -E /tmp/a.c
 ```
+
+## Pandoc docker
+
+在Mac上和Windows上安装docker后，可以比较方便的生成PDF。
+
+### Makefile方法
+
+如果有`make`，直接执行`make docker`会
+
+`make dockerrun`便可以进入Linux环境，然后执行`make`就可以生成PDF了。
+
+### docker命令
+
+如果在Windows上，也可以使用docker。如拉取docker镜像：
+
+```
+docker pull dujinfang/texlive_pandoc
+```
+
+以下命令将`d:\fsbooks`目录映射到docker里面的`/team`目录，并进入`bash` Shell环境。
+
+```
+docker run --rm -it -v d:\fsbooks:/team dujinfang/texlive_pandoc bash
+```
+
+进入Shell后，就可以按通常的方法执行`make`了。
+
+
+## Pandoc在Windows上的用法
+
+Pandoc可将Markdown格式的文件转换成HTML形式（参考`/fsbooks/fsbook-case-study/html.bat`文件）。
+
+在Windows上成功配置Pandoc后，进入命令行界面。转到`/fsbooks/fsbook-case-study/`目录下，编辑`html.bat`文件，并在命令行下运行`html.bat`，即可生成相应的`html`文件。
+html.bat文件内容如下：
+
+```
+xcopy /y images out\images\
+pandoc -o out/fsbook-case-study.html  -V book="FreeSWITCH案例大全" -V title="FreeSWITCH案例大全"  --template cover.html preface.md chapter1.md chapterx.md postface.md
+```
+
+* 第一条指令为：复制相关图片到生成路径下。（章节中调用的图片和生成的html文件在一个文件夹下，比如都在out/下）
+* 第二条指令为：将`.md`文件依照`cover.html`格式转换并输出到`out`文件夹下，并命名为`fsbook-case-study.html`。
+* 执行`.bat`文件如果出现标题文字乱码，主要是编码格式不对，可先用记事本编辑`.bat`文件，保存时编码选择“ANSI”即可。
+* `--template cover.html`后面可以随时添加章节`chapterX.md`转换
+
 
 
 ## 权益声明
