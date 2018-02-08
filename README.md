@@ -10,6 +10,37 @@
 关于Markdown格式请参考已有的内容。欢迎大家配置好自己的Pandoc环境，我们推荐使用我们的`docker`镜像生成PDF，这样可以检查自己的Markdown语法等。但配置不起来也没什么问题。我们会有专人负责格式。
 
 
+## 生成PDF
+
+根据自己的来表示，可以生成PDF或HTML来查看转换效果，推荐生成PDF，以下是基本使用方法。
+
+* 生成全书。分别进入每本书的主目录然后执行`make`：
+
+
+```
+cd fsbook-case-stuby
+make
+```
+
+```
+cd fsbook-references
+make
+```
+
+* 每章生成单个PDF。速度会比生成全书要快。进入书的主目录，然后执行：
+
+
+```
+make pdfs
+```
+
+* 仅生成单个PDF
+
+```
+make out/chapter2.pdf
+```
+
+
 ## 《FreeSWITCH案例大全》
 
 * 按照《FreeSWITCH实例解析》的格式来写。
