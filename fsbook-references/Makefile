@@ -91,7 +91,7 @@ pdf: $(SRC) out/preface.tex cover.tex cover-back.tex
 	--variable book="FreeSWITCH参考手册" \
 	--template cover.tex \
 	--number-sections \
-	--latex-engine=xelatex \
+	--pdf-engine=xelatex \
 	--include-before-body=out/preface.tex \
 	--include-after-body=cover-back.tex \
 	-o out/$(NAME)-$(VER).pdf \
