@@ -6,6 +6,7 @@ PDF = $(SRC:%.md=out/%.pdf)
 DOCS = $(SRC:%.md=out/%.docx)
 MD = markdown
 PANDOC = /usr/local/bin/pandoc
+PANDOC = pandoc
 IMGSRC = $(wildcard images/*.msc)
 PNG = $(IMGSRC:%.msc=../%.png)
 SVG = $(IMGSRC:%.msc=%.svg)
