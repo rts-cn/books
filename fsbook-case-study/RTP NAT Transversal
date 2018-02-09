@@ -1,0 +1,75 @@
+一个 RTP NAT 穿透的实际案例
+
+这是一次实际的工程支持经历, 记录下来是这样的
+
+网络拓扑：
+	FreeSWITCH 192.168.1.100
+	路由器     113.113.113.113
+	华为 SBC   126.126.126.126
+	移动 IMS   省略
+
+现象是 FreeSWITCH 透过华为 SBC 和移动 IMS 之后呼叫到手机, 之后出现语音单向, FreeSWITCH 能听到手机, 但是手机听不到 FreeSWITCH。
+从 FreeSWITCH 抓包看, SIP 信令是正常的:
+
+	INVITE    -->
+	100 Tring <--
+	180       <--
+	PRACK     -->
+	200 OK    <--
+	200 OK    <--
+	ACK       -->
+	RTP       -->
+	RTP       <--
+
+从 FreeSWITCH 的角度看到, RTP 是双向的。电话辗转很多次之后终于联系到华为的工程师, 他们确认华为一侧没收到 FreeSWITCH 发出的 RTP 流。
+分析了半天之后得出有两种可能
+一种是防火墙的原因, 还有一种可能是华为收到了 FreeSWITCH RTP 流, 但是抛弃了。(华为那边暂时没找到抓包的手段, 诊断问题全部是透过他们自己提供的工具)
+防火墙方面咨询过客户, 回答是绝无可能, 那么只能考虑另外一种可能。
+
+在 fs_cli 上运行 sofia status profile internal, 看到的是：
+
+Name                    internal
+Domain Name             N/A
+Auto-NAT                true
+DBName                  sofia_reg_internal
+Pres Hosts              192.168.1.100
+Dialplan                XML
+Context                 public
+Challenge Realm         auto_from
+RTP-IP                  192.168.1.100
+Ext-RTP-IP              113.113.113.113
+SIP-IP                  192.168.1.100
+Ext-SIP-IP              113.113.113.113
+URL                     sip:mod_sofia@192.168.1.100:5060
+BIND-URL                sip:mod_sofia@192.168.1.100:5060;transport=udp,tcp
+HOLD-MUSIC              local_stream://moh
+OUTBOUND-PROXY          N/A
+CODECS IN               PCMU,PCMA
+CODECS OUT              PCMU,PCMA
+TEL-EVENT               101
+DTMF-MODE               rfc2833
+CNG                     13
+SESSION-TO              0
+MAX-DIALOG              0
+NOMEDIA                 false
+LATE-NEG                true
+PROXY-MEDIA             false
+ZRTP-PASSTHRU           true
+AGGRESSIVENAT           false
+CALLS-IN                0
+FAILED-CALLS-IN         0
+CALLS-OUT               0
+FAILED-CALLS-OUT        0
+REGISTRATIONS           0
+
+考虑到对接的是华为 SBC, 既然对方是 SBC 设备, 那么 FreeSWITCH 在 offer sdp 里面没必要填自己的外网地址 113.113.113.113, 只需填 192.168.1.100 即可。
+于是从 profile 里面的 ext-rtp-ip 项目从 113.113.113.113 调整为 192.168.1.100, 然后重启 FreeSWITCH, 再次呼出, 媒体就成双向了。
+
+
+最后, 讲下自己的怀疑，
+我怀疑是路由器的 udp 端口映射没做好，或者是路由器有多个公网地址。
+比如 FreeSWITCH 的 offer sdp 里面的 connection 为 113.113.113.113, port 是 16384 。
+但是华为收到 RTP 的时候，可能 src port 不是 16384，或者src address 不是 113.113.113.113 , 于是把 RTP 抛弃掉了。(现场的网络有点复杂, 而且网管不在现场，没办法确认)
+现在把 offer sdp 里面的 connection 调整为 192.168.1.100, 这是一个局域网的地址, 一般的 SBC 都是能正常处理的。
+
+
