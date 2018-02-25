@@ -17,26 +17,26 @@ FreeSWITCH的模块有很多，它们丰富了FreeSWITCH的功能。本章列出
 
 该目录下的模块提供了大部分的应用功能，有的模块实现了多种Interface不好归类也会存在该目录中。
 
-* *`mod_abstraction`**：用于创建新的API命令。新的命令可以基于原有的API创建，相当于创建原有命令的别名或快捷方式。
-* *`mod_av`**：基于libav.org库的视频模块。支持H263、H264编解码，mp4视频播放和录像，RTMP推送等。也支持`ffmpeg`库（`2.6、2.8、3.0`）。
-* *`mod_avmd`**： avmd是Advanced Voice Mail Detection的缩写，即高级语音邮件检测。它是`mod_vmd`的高级版。详见`mod_vmd`。
-* *`mod_bert`**：一个用于音频测试的模块。
-* *`mod_blacklist`**： 黑名单功能。它提供了一些通过Dialplan来添加、删除以及检查黑名单的方法。
-* *`mod_callcenter`**： 一个比较强大的呼叫中心类应用。
-* *`mod_cidlookup`**： 用于主叫号码查询，即可以根据主叫号码从本地数据库或网络上查询到主叫的名字。网络上有开放的服务，如：
+* **mod_abstraction**：用于创建新的API命令。新的命令可以基于原有的API创建，相当于创建原有命令的别名或快捷方式。
+* **mod_av**：基于libav.org库的视频模块。支持H263、H264编解码，mp4视频播放和录像，RTMP推送等。也支持`ffmpeg`库（`2.6、2.8、3.0`）。
+* **mod_avmd**： avmd是Advanced Voice Mail Detection的缩写，即高级语音邮件检测。它是`mod_vmd`的高级版。详见`mod_vmd`。
+* **mod_bert**：一个用于音频测试的模块。
+* **mod_blacklist**： 黑名单功能。它提供了一些通过Dialplan来添加、删除以及检查黑名单的方法。
+* **mod_callcenter**： 一个比较强大的呼叫中心类应用。
+* **mod_cidlookup**： 用于主叫号码查询，即可以根据主叫号码从本地数据库或网络上查询到主叫的名字。网络上有开放的服务，如：
 
 ```
 $ curl https://api.opencnam.com/v2/phone/16502530000?format=pbx
     GOOGLE INC
 ```
 
-* *`mod_cluechoo`**： 该模块是一个例子模块，主要是教大家怎么写模块。另外，它还带了一个好玩的例子，如在命令行上执行cluechoo将会看到屏幕上开过一个小火车。
-* *`mod_commands`**： 提供了系统大部分的命令API。
-* *`mod_conference`**： 多人语音及视频会议。
-* *`mod_curl`**： 使用`libcurl`作为一个HTTP客户端向Web服务器发送请求，也可以得到返回的结果。
-* *`mod_cv`**：使用OpenCV库，对视频进行图像识别的模块。
-* *`mod_db`**： 该模块提供一组接口，用于使用API或App对数据库表进行增、删、改、查。
-* *`mod_directory`**： 该模块用于按姓名呼叫用户。如果不知道用户的分机号，但知道用户的名字，则可以通过输入该用户名字的前几位进行拨叫。如，在下面的例子中，我们可以通过拨打411进入directory程序。
+* **mod_cluechoo**： 该模块是一个例子模块，主要是教大家怎么写模块。另外，它还带了一个好玩的例子，如在命令行上执行cluechoo将会看到屏幕上开过一个小火车。
+* **mod_commands**： 提供了系统大部分的命令API。
+* **mod_conference**： 多人语音及视频会议。
+* **mod_curl**： 使用`libcurl`作为一个HTTP客户端向Web服务器发送请求，也可以得到返回的结果。
+* **mod_cv**：使用OpenCV库，对视频进行图像识别的模块。
+* **mod_db**： 该模块提供一组接口，用于使用API或App对数据库表进行增、删、改、查。
+* **mod_directory**： 该模块用于按姓名呼叫用户。如果不知道用户的分机号，但知道用户的名字，则可以通过输入该用户名字的前几位进行拨叫。如，在下面的例子中，我们可以通过拨打411进入directory程序。
 
 ```
 <extension name="directory" continue="true">
@@ -48,91 +48,91 @@ $ curl https://api.opencnam.com/v2/phone/16502530000?format=pbx
 
 当系统提示输入名字时，我们输入`9378`可以找到Brian West（默认是按`last_name`查找的，West对应键盘按键`9378`）。
 
-* *`mod_distributor`**： 如果需要通过多个网关出局时，该模块可以帮助将呼叫根据一定的比例分发到不同的网关。
-* *`mod_dptools`**： 提供了系统大部分的App。
-* *`mod_easyroute`**： 用于根据号码路由，对大规模的DID比较有用。
-* *`mod_enum`**： 通过ENUM查询可以根据E164号码找到用户的SIP地址。该模块也提供一个enum Dialplan。
-* *`mod_esf`**： ESF是Extended SIP Functionality的缩写，即扩展的SIP功能。它提供通过Muticast方法进行组拨的功能。
-* *`mod_esl`**： 该模块用于两个FreeSWITCH间的ESL对接。即一个FreeSWITCH可以作为另一个FreeSWITCH的ESL客户端访问它。
-* *`mod_expr`**： 提供`expr`表达式计算。
-* *`mod_fifo`**： 一个先入先出队列（First In First Out），可以用于简单的呼叫中心排队。
-* *`mod_fsk`**： 收发FSK（Frequency-shift keying，移频键控）信息。
-* *`mod_fsv`**： FSV是FreeSWITCH Video的缩写，它使用了一种私有的格式来进行视频录像，可以支持任何编码的视频格式。它只存储原始的RTP包，对视频流不进行任何处理。
-* *`mod_hash`**： 用于操作系统内部的哈希表。可以存储一些简单的数据。
-* *`mod_httapi`**： 一种HTTP格式的API接口，可以通过HTTP方式写IVR。
+* **mod_distributor**： 如果需要通过多个网关出局时，该模块可以帮助将呼叫根据一定的比例分发到不同的网关。
+* **mod_dptools**： 提供了系统大部分的App。
+* **mod_easyroute**： 用于根据号码路由，对大规模的DID比较有用。
+* **mod_enum**： 通过ENUM查询可以根据E164号码找到用户的SIP地址。该模块也提供一个enum Dialplan。
+* **mod_esf**： ESF是Extended SIP Functionality的缩写，即扩展的SIP功能。它提供通过Muticast方法进行组拨的功能。
+* **mod_esl**： 该模块用于两个FreeSWITCH间的ESL对接。即一个FreeSWITCH可以作为另一个FreeSWITCH的ESL客户端访问它。
+* **mod_expr**： 提供`expr`表达式计算。
+* **mod_fifo**： 一个先入先出队列（First In First Out），可以用于简单的呼叫中心排队。
+* **mod_fsk**： 收发FSK（Frequency-shift keying，移频键控）信息。
+* **mod_fsv**： FSV是FreeSWITCH Video的缩写，它使用了一种私有的格式来进行视频录像，可以支持任何编码的视频格式。它只存储原始的RTP包，对视频流不进行任何处理。
+* **mod_hash`**： 用于操作系统内部的哈希表。可以存储一些简单的数据。
+* **mod_httapi**： 一种HTTP格式的API接口，可以通过HTTP方式写IVR。
 * **mod\_http\_cache**： 通过http方式上传和下载文件，并可以进行本地缓存。
-* *`mod_ladspa`**： 使用ladspa库对声音进行处理，可以让声音更好听。
-* *`mod_lcr`**： LCR是Least Cost Routing的缩写，即最省钱的路由。它会根据数据库配置的路由信息和费率找到最省钱的路由。
-* *`mod_limit`**： 用于系统资源限制。
-* *`mod_memcache`**： 与Memcache交互，类似把`mod_hash`的数据库到远程的Memcache中。
-* *`mod_mongo`**： 与Mongodb交互，类似`mod_memcache`。
-* *`mod_mp4`**： 提供MP4文件的播放支持。
-* *`mod_mp4v2`**： 提供MP4文件的录像支持。
-* *`mod_nibblebill`**： 一些简单的计费功能，可用于预付费和电话卡类的应用。
-* *`mod_oreka`**： 使用oreka进行录音。oreka是一款开源的录音软件。
-* *`mod_osp`**： 通过Open Settlement Protocol查找路由或上报CDR。
+* **mod_ladspa**： 使用ladspa库对声音进行处理，可以让声音更好听。
+* **mod_lcr**： LCR是Least Cost Routing的缩写，即最省钱的路由。它会根据数据库配置的路由信息和费率找到最省钱的路由。
+* **mod_limit**： 用于系统资源限制。
+* **mod_memcache**： 与Memcache交互，类似把`mod_hash`的数据库到远程的Memcache中。
+* **mod_mongo**： 与Mongodb交互，类似`mod_memcache`。
+* **mod_mp4**： 提供MP4文件的播放支持。
+* **mod_mp4v2**： 提供MP4文件的录像支持。
+* **mod_nibblebill**： 一些简单的计费功能，可用于预付费和电话卡类的应用。
+* **mod_oreka**： 使用oreka进行录音。oreka是一款开源的录音软件。
+* **mod_osp**： 通过Open Settlement Protocol查找路由或上报CDR。
 * **mod\_rad\_auth**： 使用radius服务器进行鉴权。
-* *`mod_random`**： 通过访问/dev/hwrandom设备影响随机数的熵。
-* *`mod_redis`**： 与redis服务器交互，类似`mod_memcache`。
-* *`mod_rss`**： 访问RSS（Really Simple Syndication，简易信息聚合）数据。
-* *`mod_skel`**： 一个模块的例子框架。
-* *`mod_sms`**： 处理文本消息。如收发SIP MESSAGE消息等。它实现了消息路由（Chazplan），类似Dialplan。
-* *`mod_snapshot`**： 可以截取一段声音的快照。
+* **mod_random**： 通过访问/dev/hwrandom设备影响随机数的熵。
+* **mod_redis**： 与redis服务器交互，类似`mod_memcache`。
+* **mod_rss**： 访问RSS（Really Simple Syndication，简易信息聚合）数据。
+* **mod_skel**： 一个模块的例子框架。
+* **mod_sms**： 处理文本消息。如收发SIP MESSAGE消息等。它实现了消息路由（Chazplan），类似Dialplan。
+* **mod_snapshot**： 可以截取一段声音的快照。
 * **mod\_snipe\_hunt**： 一个简单的例子模块。
-* *`mod_snom`**： 用于snom话机的一些特性。
-* *`mod_sonar`**： 该模块类似于一个真正的声纳。首先你可以在远端启动一个服务器，能对来话执行`echo` App。然后在本地的FreeSWITCH上产生一些铃音，发送到远端的服务器上再反射回来，然后使用VAD检测功能可以检测这些铃音，从而可以在某种程度上确定网络的质量。
-* *`mod_soundtouch`**： 使用soundtouch库对声音进行处理，可以增加音效。
-* *`mod_spandsp`**： 使用spandsp[^spandsp]支持一些语音编码及传真功能。
+* **mod_snom**： 用于snom话机的一些特性。
+* **mod_sonar**： 该模块类似于一个真正的声纳。首先你可以在远端启动一个服务器，能对来话执行`echo` App。然后在本地的FreeSWITCH上产生一些铃音，发送到远端的服务器上再反射回来，然后使用VAD检测功能可以检测这些铃音，从而可以在某种程度上确定网络的质量。
+* **mod_soundtouch**： 使用soundtouch库对声音进行处理，可以增加音效。
+* **mod_spandsp**： 使用spandsp[^spandsp]支持一些语音编码及传真功能。
 
 [^spandsp]: http://www.soft-switch.org/
 
-* *`mod_spy`**： 用于监视某个话机，当该话机有通话时，本机就振铃并可以监听。
-* *`mod_stress`**： 使用快速傅立叶变换（FFT，Fast Fourier Transform）检测重音。
-* *`mod_translate`**： 通过既定的规则对号码进行翻译。
+* **mod_spy**： 用于监视某个话机，当该话机有通话时，本机就振铃并可以监听。
+* **mod_stress**： 使用快速傅立叶变换（FFT，Fast Fourier Transform）检测重音。
+* **mod_translate**： 通过既定的规则对号码进行翻译。
 * **mod\_valet\_parking**： 电话停靠。类似于泊车，有来电时可以将来电依靠在某个泊位上，然后通知某人拨开指定的号码将来话『接』走。
-* *`mod_vmd`**： 提供Voicemail声音检测。在国外，好多电话都有自动应答功能，如『您好，主人不在家，请留言』。使用该模块可检测到这种声音，应用程序在自动外呼时就可以根据它的结果判断是人工接听的还是机器接听的。
+* **mod_vmd**： 提供Voicemail声音检测。在国外，好多电话都有自动应答功能，如『您好，主人不在家，请留言』。使用该模块可检测到这种声音，应用程序在自动外呼时就可以根据它的结果判断是人工接听的还是机器接听的。
 
-* *`mod_voicemail`**： 语音邮箱。
+* **mod_voicemail**： 语音邮箱。
 * **mod\_voicemail\_ivr**： 带IVR导航的语音邮箱。
 
 ### asr_tts
 
 提供自动语音识别及语音合成的功能。
 
-* *`mod_cepstral`**： 使用Cepstra语音库支持TTS。
-* *`mod_flite`**： 使用Festival Lite库支持TTS。
-* *`mod_pocketsphinx`**： 使用pocketsphinx库支持语音识别。
-* ***mod\_tts\_commandline**： 通过命令行程序使用TTS。
-* *`mod_unimrcp`**： 通过uniMRCP协议与其他ASR/TTS产品对接。uniMRCP是一个标准的协议，很多语音产品都支持它。
+* **mod_cepstral**： 使用Cepstra语音库支持TTS。
+* **mod_flite**： 使用Festival Lite库支持TTS。
+* **mod_pocketsphinx**： 使用pocketsphinx库支持语音识别。
+* **mod\_tts\_commandline**： 通过命令行程序使用TTS。
+* **mod_unimrcp**： 通过uniMRCP协议与其他ASR/TTS产品对接。uniMRCP是一个标准的协议，很多语音产品都支持它。
 
 ### codecs：
 
 各种类型的音、视频编码。大多数名称都很直观，不再多做解释。
 
-* *`mod_amr`**：AMR编解码，仅支持透传。
-* *`mod_amrwb`**：AMR编解码，宽带，仅支持透传。
-* *`mod_b64`**： Base64编码，可以传输任何数据。
-* *`mod_bv`**： BroadVoice的编码。
-* *`mod_celt`**：CELT编解码。
-* *`mod_codec2`**：Codec2编解码，非常节省带宽，仅2-4k。
+* **mod_amr**：AMR编解码，仅支持透传。
+* **mod_amrwb**：AMR编解码，宽带，仅支持透传。
+* **mod_b64**： Base64编码，可以传输任何数据。
+* **mod_bv**： BroadVoice的编码。
+* **mod_celt**：CELT编解码。
+* **mod_codec2**：Codec2编解码，非常节省带宽，仅2-4k。
 * **mod\_com\_g729**： 商业的G.729编码，可转码，需要许可证。
 * **mod\_dahdi\_codec**： 通过DAHDI库提供的编码。
 * **mod\_g723\_1**：G723编解码，仅支持透传。
-* *`mod_g729`**：仅支持透传。
-* *`mod_h26x`**：提供H261，H263，H264等视频编码，仅支持透传
-* *`mod_ilbc`**：iLBC编解码。
-* *`mod_isac`**：iSac编解码。
-* *`mod_mp4v`**：mp4v编解码，仅支持透传。
-* *`mod_openh264`**：使用思科OpenH264库支持H264编解码。
-* *`mod_opus`**：OPUS编解码。
+* **mod_g729**：仅支持透传。
+* **mod_h26x**：提供H261，H263，H264等视频编码，仅支持透传
+* **mod_ilbc**：iLBC编解码。
+* **mod_isac**：iSac编解码。
+* **mod_mp4v**：mp4v编解码，仅支持透传。
+* **mod_openh264**：使用思科OpenH264库支持H264编解码。
+* **mod_opus**：OPUS编解码。
 * **mod\_sangoma\_codec**：通过硬件板卡支持包括G729、iLBC等多种编码
-* *`mod_silk`**：SILK编解码。
-* *`mod_siren`**：Siren编解码。
+* **mod_silk**：SILK编解码。
+* **mod_siren**：Siren编解码。
 * **mod\_skel\_codec**：例子模块。
-* *`mod_speex`**：SpeeX编解码模块。在1.4版中已移至核心中，不再以独立模块的形式存在
-* *`mod_theora`**：Theora编解码。
-* *`mod_vp8`**：在1.6中已被`mod_vpx`代替。
-* *`mod_vpx`**：VP8、VP9编解码模块。
+* **mod_speex**：SpeeX编解码模块。在1.4版中已移至核心中，不再以独立模块的形式存在
+* **mod_theora**：Theora编解码。
+* **mod_vp8**：在1.6中已被`mod_vpx`代替。
+* **mod_vpx**：VP8、VP9编解码模块。
 
 ### dialplans
 
@@ -146,33 +146,33 @@ $ curl https://api.opencnam.com/v2/phone/16502530000?format=pbx
 
 目录服务。
 
-* *`mod_ldap`**：通过LDAP提供目录服务。
+* **mod_ldap**：通过LDAP提供目录服务。
 
 ### endpoints
 
 各种Endpoint的实现。
 
-* *`mod_alsa`**： 使用ALSA声卡。
-* *`mod_dingaling`**： 连接Google Talk。
-* *`mod_gsmopen`**： 使用无线上网卡上的GSM接口或使用手机上的GSM接口与外界发短信或通话。
-* *`mod_h323`**： 连接H.323设备。使用OpenH323库实现。
-* *`mod_khomp`**： 使用KHOMP板卡。
-* *`mod_loopback`**： 提供loopback回环接口。
-* *`mod_opal`**： 连接H.323设备，使用OPAL库实现。
-* *`mod_portaudio`**：通过Portaudio库支持本地声卡。
-* *`mod_reference`**：未知。
-* *`mod_rtmp`**： 通过Adobe的rtmp协议与浏览器中的Flash电话进行通话。
-* *`mod_skinny`**： 支持思科的SCCP协议话机。
-* *`mod_skypopen`**： 与Skype互通。
-* *`mod_sofia`**： SIP模块。
-* *`mod_unicall`**：未知。
-* *`mod_verto`**：FreeSWITCH特定的基于WebSocket和JSON的协议，支持WebRTC。
+* **mod_alsa**： 使用ALSA声卡。
+* **mod_dingaling**： 连接Google Talk。
+* **mod_gsmopen**： 使用无线上网卡上的GSM接口或使用手机上的GSM接口与外界发短信或通话。
+* **mod_h323**： 连接H.323设备。使用OpenH323库实现。
+* **mod_khomp**： 使用KHOMP板卡。
+* **mod_loopback**： 提供loopback回环接口。
+* **mod_opal**： 连接H.323设备，使用OPAL库实现。
+* **mod_portaudio**：通过Portaudio库支持本地声卡。
+* **mod_reference**：未知。
+* **mod_rtmp**： 通过Adobe的rtmp协议与浏览器中的Flash电话进行通话。
+* **mod_skinny**： 支持思科的SCCP协议话机。
+* **mod_skypopen**： 与Skype互通。
+* **mod_sofia**： SIP模块。
+* **mod_unicall**：未知。
+* **mod_verto**：FreeSWITCH特定的基于WebSocket和JSON的协议，支持WebRTC。
 
 ### event_handlers
 
 事件处理。
 
-* *`mod_amqp`**：AMQP模块，支持与RabbitMQ连接，发送事件，执行命令等。
+* **mod_amqp**：AMQP模块，支持与RabbitMQ连接，发送事件，执行命令等。
 * **mod\_cdr\_csv**： CSV格式的话单。
 * **mod\_cdr\_mongodb**： 将话单写入Mongodb。
 * **mod\_cdr\_pg\_csv**： 将话单写入PostgreSQL数据库。
@@ -184,51 +184,51 @@ $ curl https://api.opencnam.com/v2/phone/16502530000?format=pbx
 * **mod\_event\_zmq**：使用ZeroMQ协议与第三方对接。
 * **mod\_format\_cdr**： JSON和XML格式的CDR。
 * **mod\_json\_cdr**： JSON格式的CDR。
-* *`mod_kazoo`**：2600Hz使用的Erlang模块，解决了`mod_erlang_event`的一些问题。
+* **mod_kazoo**：2600Hz使用的Erlang模块，解决了`mod_erlang_event`的一些问题。
 * **mod\_radius\_cdr**：将CDR写入Radius服务器。
-* *`mod_rayo`**：Rayo支持。
-* *`mod_smpp`**：使用SMPP协议发送即时消息。
-* *`mod_snmp`**：SNMP网管接口。
+* **mod_rayo**：Rayo支持。
+* **mod_smpp**：使用SMPP协议发送即时消息。
+* **mod_snmp**：SNMP网管接口。
 
 ### formats
 
 格式。
 
-* *`mod_imagick`**：使用ImageMagick库支持Gif、PDF等。
+* **mod_imagick**：使用ImageMagick库支持Gif、PDF等。
 * **mod\_local\_stream**： 从本地文件生成媒体流。
 * **mod\_native\_file**： 支持原生文件读写，如直接读写`.PCMU`或`.G729`格式的文件。
-* *`mod_png`**：支持PNG文件。
+* **mod_png**：支持PNG文件。
 * **mod\_portaudio\_stream**： 使用`portaudio`库从本地声卡生成媒体流。
 * **mod\_shell\_stream**： 从Shell命令中生成媒体流。
-* *`mod_shout`**： MP3文件格式支持，远程Shoutcast服务器支持。
-* *`mod_sndfile`**： 使用`libsndfile`支持大多数的声音文件。
-* *`mod_ssml`**： SSML格式的文件支持。
+* **mod_shout**： MP3文件格式支持，远程Shoutcast服务器支持。
+* **mod_sndfile**： 使用`libsndfile`支持大多数的声音文件。
+* **mod_ssml**： SSML格式的文件支持。
 * **mod\_tone\_stream**： 生成铃流音。
-* *`mod_vlc`**： 使用libvlc提供媒体文件格式的支持。
-* *`mod_webm`**：支持webm文件。
+* **mod_vlc**： 使用libvlc提供媒体文件格式的支持。
+* **mod_webm**：支持webm文件。
 
 ### languages
 
 各种嵌入式编码语言接口。
 
-* *`mod_basic`**：Basic。
-* *`mod_java`**： Java。
-* *`mod_lua`**： Lua。
-* *`mod_managed`**： 微软平台的语言接品，如C#、VB.NET等。
-* *`mod_perl`**： Perl。
-* *`mod_python`**：Python。
-* *`mod_spidermonkey`**：Javascript，已被`mod_v8`替代。
-* *`mod_v8`**：Javascript。
-* *`mod_yaml`**：Yaml。
+* **mod_basic**：Basic。
+* **mod_java**： Java。
+* **mod_lua**： Lua。
+* **mod_managed**： 微软平台的语言接品，如C#、VB.NET等。
+* **mod_perl**： Perl。
+* **mod_python**：Python。
+* **mod_spidermonkey**：Javascript，已被`mod_v8`替代。
+* **mod_v8**：Javascript。
+* **mod_yaml**：Yaml。
 
 ### loggers
 
 日志。
 
-* *`mod_console`**： 控制台日志。
-* *`mod_graylog2`**： 使用graylog2写日志文件。
-* *`mod_logfile`**： 日志文件。
-* *`mod_syslog`**： 将日志写到Syslog。
+* **mod_console**： 控制台日志。
+* **mod_graylog2**： 使用graylog2写日志文件。
+* **mod_logfile**： 日志文件。
+* **mod_syslog**： 将日志写到Syslog。
 
 ### say
 
@@ -258,7 +258,7 @@ $ curl https://api.opencnam.com/v2/phone/16502530000?format=pbx
 定时器。
 
 * **mod\_posix\_timer**：Posix定时器。
-* *`mod_timerfd`**： 使用Linux内核中的`timerfd`定时器。
+* **mod_timerfd**： 使用Linux内核中的`timerfd`定时器。
 
 ### xml_int
 
