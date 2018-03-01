@@ -1,6 +1,4 @@
 all:
-	cd fsbook-case-study && make
-	cd fsbook-references && make
 	cd fsbook-basics && make
 
 docker:
