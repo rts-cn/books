@@ -1,6 +1,5 @@
 all:
-	cd fsbook-basics && make
-
+	cd fsbook-xswitch && make
 docker:
 	docker pull dujinfang/texlive_pandoc
 
