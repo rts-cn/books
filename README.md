@@ -97,6 +97,22 @@ nl -b a $@ | pbcopy
 ![\label{fig:cluechoo}ClueChoo小火车](images/cluechoo.png)
 ```
 
+引用
+
+可以用`\label{}`和`\ref{}`引用。在编译时，会自动根据标题内容生成Lable信息，如`\label{switch_core_video.c}`。但对于中文的标题，自进行一些编译操作。为了获取编码后的标题，可以执行`make tex`，查看`out/*.tex`文件中的相关Lable，如《源代码分析》第一章：
+
+```
+\chapter{源代码导读及编译指南}\label{ux6e90ux4ee3ux7801ux5bfcux8bfbux53caux7f16ux8bd1ux6307ux5357}
+```
+
+脚注，示例如下。
+
+```
+下面我们来讲一下FreeSWITCH[^freeswitch]。
+
+
+[^freeswitch]: 参见<https://freeswitch.org>。
+```
 
 ## 协作流程
 
