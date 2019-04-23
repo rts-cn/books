@@ -124,9 +124,6 @@ app
         -rem (rem源代码)
           -CMakeLists.txt
         -openssl
-          -include
-          -libcrypto.a
-          -libssl.a
           -CMakeLists.txt
         -baresiplib (JNI接口本地实现，衔接baresip和上层应用，也可以用其他方式实现)
           -CMakeLists.txt
