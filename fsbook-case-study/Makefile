@@ -17,7 +17,8 @@ NAME=fsbook-case-study
 
 all: html pdf
 
-SRC=chapter1.md \
+SRC=meta.md \
+	chapter1.md \
 	chapter-alwaysrun.md \
 	chapter2.md \
 	chapterX.md \
@@ -96,6 +97,34 @@ pdf: $(SRC) out/preface.tex cover.tex cover-back.tex
 	--include-after-body=cover-back.tex \
 	-o out/$(NAME)-$(VER).pdf \
 	$(SRC)
+
+mobile: $(SRC) out/preface.tex cover.tex cover-back.tex
+
+	$(PANDOC) -s --toc \
+	--variable mobile \
+	--template ../fsbook-src/cover.tex \
+	--number-sections \
+	--pdf-engine=xelatex \
+	--include-before=header.tex \
+	--include-in-header=xcover.tex \
+	--include-before-body=out/preface.tex \
+	--include-after-body=cover-back.tex \
+	-o out/$(NAME)-mobile-$(VER).pdf \
+	$(SRC)
+
+mobile-test: $(SRC) out/preface.tex cover.tex cover-back.tex
+
+	$(PANDOC) -s --toc \
+	--variable mobile=true \
+	--template ../fsbook-src/cover.tex \
+	--number-sections \
+	--pdf-engine=xelatex \
+	--include-before=header.tex \
+	--include-in-header=xcover.tex \
+	--include-before-body=out/preface.tex \
+	--include-after-body=cover-back.tex \
+	-o out/$(NAME)-mobile-test-$(VER).pdf \
+	meta.md chapter1.md
 
 print:
 	@echo this book is not printable!
