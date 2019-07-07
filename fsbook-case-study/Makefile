@@ -21,6 +21,9 @@ SRC=meta.md \
 	chapter1.md \
 	chapter-alwaysrun.md \
 	chapter2.md \
+	section-503.md \
+	chapter4.md \
+	section-from-to.md \
 	chapterX.md \
 	postface.md
 
