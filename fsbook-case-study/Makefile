@@ -20,12 +20,12 @@ all: html pdf
 SRC=meta.md \
 	chapter1.md \
 	chapter-alwaysrun.md \
-	install_freeswitch_to_wsl.md \
+	section-wsl.md \
 	chapter2.md \
 	section-503.md \
-	chapter4.md \
-	section-from-to.md \
 	chapter3.md \
+	section-from-to.md \
+	section-sip-trunk.md \
 	chapterX.md \
 	chapter-client.md \
 	Android.md \

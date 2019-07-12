@@ -4,7 +4,7 @@
 
 问题提出：对于从呼叫中心`Callcenter`分配到坐席的电话，电话接起后需要先向主叫播报一下工号。  
 
-###修改callcenter.conf的配置
+### 修改callcenter.conf的配置
 
 首先想到的是通过`execute_on_answer`在接听时执行一个动作。为此修改`callcenter.conf.xml`配置文件如下： 
  

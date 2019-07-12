@@ -55,6 +55,9 @@ make out/chapter2.pdf
 * API参考
 * App参考
 
+## 命名规则
+
+一般来说，章命名为`chapter-xxx.md`，节命名为`section-xxx.md`，所有章节参见各书Makefile中的`SRC`部分。
 
 ## 行文规范
 
