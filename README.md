@@ -181,9 +181,11 @@ cd src
 find . -name "*.c" -exec grep switch_channel_get_variable {} \; | sed -e 's/^.*switch_channel_get_variable[^,]*, *"*\([0-9a-zA-Z_]*\).*$/\1/' | sort | uniq
 
 find . -name "*.c" -exec grep switch_channel_get_variable {} \; | sed -e 's/^.*switch_channel_get_variable[^,]*, *"*\([0-9a-zA-Z_]*\).*$/\1/' | sort | uniq > /tmp/a.c
+```
 
-在`a.c`加入`#include <switch_types.h>`
+在`a.c`加入`#include <switch_types.h>`：
 
+```bash
 gcc -Iinclude/ -E /tmp/a.c
 ```
 
