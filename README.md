@@ -78,16 +78,16 @@ make out/chapter2.pdf
 
 ````
 ```c
-    int main(int argc, char **argv);
+int main(int argc, char **argv);
 ```
 ````
 
 或有语法加亮功能的代码段：
 
 ```c
-	/* 这是一段很长很长的代码 */
-	int a, b c;
-	char *freeswitch;
+/* 这是一段很长很长的代码 */
+int a, b c;
+char *freeswitch;
 ```
 
 * 如果代码需要加行号，可以用`nl`命令，如，我在Mac上有一个脚本，可以加亮后直接Copy到剪贴板上：
@@ -99,15 +99,16 @@ nl -b a $@ | pbcopy
 
 * 图片、抓屏等，尽量只抓必要的部分。把重要的内容放大后抓取。由于排版限制，尽量使用宽高比大于或等于`2:1`的图片（必要情况下可以两侧加白边），在排版中会有较好的效果。如，以下命令可以使用ImageMagic把现有图片两侧加白边（需要先用`identify`找到图像大小，再把宽度加大：
 
-	convert -gravity center -background white -extent 1200x700 autotools.png autotools-2.png
-
+```bash
+convert -gravity center -background white -extent 1200x700 autotools.png autotools-2.png
+```
 
 插入图片可参考如下代码片断：
 
 ```bash
 接着在命令控制台上输入以下命令，便会看到一辆小火车开过，如图\ref{fig:cluechoo}：
 
-     freeswitch> cluechoo
+    freeswitch> cluechoo
 
 ![\label{fig:cluechoo}ClueChoo小火车](images/cluechoo.png)
 ```
@@ -120,13 +121,13 @@ nl -b a $@ | pbcopy
 \chapter{源代码导读及编译指南}\label{ux6e90ux4ee3ux7801ux5bfcux8bfbux53caux7f16ux8bd1ux6307ux5357}
 ```
 
-脚注，示例如下。
+脚注，示例如下（为防止有人在复制时连句号复制上，脚注中的URL后面可以不用加标点符号）。
 
 ```bash
 下面我们来讲一下FreeSWITCH[^freeswitch]。
 
 
-[^freeswitch]: 参见<https://freeswitch.org>。
+[^freeswitch]: 参见<https://freeswitch.org>
 ```
 
 ## 协作流程
@@ -148,7 +149,7 @@ nl -b a $@ | pbcopy
 * 中文使用UTF-8编码。需要一个称手的编辑器。可以使用Sublime Text之类的编辑器。不要用Windows记事本。
 * 每次修改前都先`pull`最新的，以减少冲突。为了保持一个清淅的提交历史，建议使用rebase方式更新`master`，如，修改 `.git/config`：
 
-```
+```bash
 [branch "master"]
         remote = origin
         merge = refs/heads/master
@@ -159,15 +160,19 @@ nl -b a $@ | pbcopy
 
 生成API命令列表：
 
-	gcc -E mod_commands.c | grep ADD_API | sed -e 's/^[^,]*, "//' | sort | pbcopy
+```bash
+gcc -E mod_commands.c | grep ADD_API | sed -e 's/^[^,]*, "//' | sort | pbcopy
+```
 
 生成APP列表：
 
-    gcc -E mod_dptools.c | grep ADD_APP | sed -e 's/^[^,]*, "//' | sort | pbcopy
+```bash
+gcc -E mod_dptools.c | grep ADD_APP | sed -e 's/^[^,]*, "//' | sort | pbcopy
+```
 
 取得所有可能的通道变量：
 
-```
+```bash
 cd src
 
 find . -name "*.c" -exec grep switch_channel_get_variable {} \; | sed -e 's/^.*switch_channel_get_variable[^,]*, *"*\([0-9a-zA-Z_]*\).*$/\1/' | sort | uniq
@@ -213,7 +218,7 @@ Pandoc可将Markdown格式的文件转换成HTML形式（参考`/fsbooks/fsbook-
 在Windows上成功配置Pandoc后，进入命令行界面。转到`/fsbooks/fsbook-case-study/`目录下，编辑`html.bat`文件，并在命令行下运行`html.bat`，即可生成相应的`html`文件。
 html.bat文件内容如下：
 
-```
+```bash
 xcopy /y images out\images\
 pandoc -o out/fsbook-case-study.html  -V book="FreeSWITCH案例大全" -V title="FreeSWITCH案例大全"  --template cover.html preface.md chapter1.md chapterx.md postface.md
 ```
@@ -222,7 +227,6 @@ pandoc -o out/fsbook-case-study.html  -V book="FreeSWITCH案例大全" -V title=
 * 第二条指令为：将`.md`文件依照`cover.html`格式转换并输出到`out`文件夹下，并命名为`fsbook-case-study.html`。
 * 执行`.bat`文件如果出现标题文字乱码，主要是编码格式不对，可先用记事本编辑`.bat`文件，保存时编码选择“ANSI”即可。
 * `--template cover.html`后面可以随时添加章节`chapterX.md`转换
-
 
 
 ## 权益声明
