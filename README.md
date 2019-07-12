@@ -60,12 +60,27 @@ make out/chapter2.pdf
 
 **注意排版。**
 
+* **使用UNIX换行符**，（不要使用Windows记事本编辑，可以使用Notepad++、Sublime或VSCode等）。
 * 使用Markdown格式，如果本规范中未规定的，参考已有的内容。
 * 正文中使用中文标点。
-* 代码有专门的格式，如`code`，或缩进四格为代码段：
+* 使用`#`及`##`等定义标题，标题后要有空行。
+* 章从`#`起，节从`##`起。
+* 自己写的章节写上自己的名字，以`>空格`开始以便排版，如`> Seven Du/2019-08`。
+* 图片要专门占一行。
+* 代码有专门的格式，如`code`，代码段：
 
-    // this is a comment line in code
-    // 这是一行注释
+```
+// this is a comment line in code
+// 这是一行注释
+```
+
+代码段必须为如下格式，**必须有语言部分**以保证语法加亮及自动换行。
+
+````
+```c
+    int main(int argc, char **argv);
+```
+````
 
 或有语法加亮功能的代码段：
 
@@ -89,7 +104,7 @@ nl -b a $@ | pbcopy
 
 插入图片可参考如下代码片断：
 
-```
+```bash
 接着在命令控制台上输入以下命令，便会看到一辆小火车开过，如图\ref{fig:cluechoo}：
 
      freeswitch> cluechoo
@@ -101,13 +116,13 @@ nl -b a $@ | pbcopy
 
 可以用`\label{}`和`\ref{}`引用。在编译时，会自动根据标题内容生成Lable信息，如`\label{switch_core_video.c}`。但对于中文的标题，自进行一些编译操作。为了获取编码后的标题，可以执行`make tex`，查看`out/*.tex`文件中的相关Lable，如《源代码分析》第一章：
 
-```
+```bash
 \chapter{源代码导读及编译指南}\label{ux6e90ux4ee3ux7801ux5bfcux8bfbux53caux7f16ux8bd1ux6307ux5357}
 ```
 
 脚注，示例如下。
 
-```
+```bash
 下面我们来讲一下FreeSWITCH[^freeswitch]。
 
 
