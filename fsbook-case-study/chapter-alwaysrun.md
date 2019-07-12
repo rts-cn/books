@@ -94,8 +94,8 @@ fsApi:execute("uuid_broadcast", opUuid .. " " .. "say::en\\snumber\\siterated\\s
 
 修改完成后，重新加载配置，并把脚本保存到`script`目录下，呼叫‘1234’电话就被路由到1000话机上，接听后呼叫方就会听到工号播报了。工号播报部分日志如下：
 
-```
+```bash
 switch_ivr_play_say.c:1749 done playing file file_string://digits/8.wav!digits/1.wav!digits/0.wav!digits/0.wav!digits/0.wav
-```  
+```
 
 以上即为一个简单的工号播报脚本，读者可根据具体情况自由发挥来满足实际的需求。

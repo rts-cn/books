@@ -20,11 +20,15 @@ all: html pdf
 SRC=meta.md \
 	chapter1.md \
 	chapter-alwaysrun.md \
+	install_freeswitch_to_wsl.md \
 	chapter2.md \
 	section-503.md \
 	chapter4.md \
 	section-from-to.md \
+	chapter3.md \
 	chapterX.md \
+	chapter-client.md \
+	Android.md \
 	postface.md
 
 .PHONY html: $(SRC)
@@ -112,7 +116,7 @@ mobile: $(SRC) out/preface.tex cover.tex cover-back.tex
 	--include-in-header=xcover.tex \
 	--include-before-body=out/preface.tex \
 	--include-after-body=cover-back.tex \
-	-o out/$(NAME)-mobile-$(VER).pdf \
+	-o out/FreeSWITCH案例大全-m$(VER).pdf \
 	$(SRC)
 
 mobile-test: $(SRC) out/preface.tex cover.tex cover-back.tex

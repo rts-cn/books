@@ -8,3 +8,6 @@
 本书内容会不断更新，请关注本书的网站：<http://book.dujinfang.com> 。你也可以订阅FreeSWITCH-CN微信公众号以随时了解FreeSWITCH和本书动态。
 
 ![FreeSWITCH-CN 微信公众号](images/qr-wechat.png)
+
+
+**注**：本书还在写作中......
