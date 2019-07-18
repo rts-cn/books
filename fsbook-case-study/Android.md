@@ -251,3 +251,90 @@ app
             ...
 ```
 
+### 色彩模式和视频编解码
+
+---
+
+FreeSWITCH可以使用视频通信功能，一个简单的视频会议的处理流程如下：
+
+```
+客户端调用摄像头获取视频画面 → 视频编码压缩 → 视频打包传输至服务器
+→ 服务器处理所有客户端发送来的画面（融屏、字幕、重新编码等）→ 服务器下发视频数据流
+→ 客户端缓冲视频数据 → 视频解码 → 播放视频
+```
+
+在整个流程中，获取视频画面、编解码、播放视频这些工作BareSIP并没有提供现成的或者完整的接口，需要我们自己处理，因此，首先需要了解一些色彩模式和视频编解码的基础知识，如果已经充分了解的读者可以略过本章节。
+
+#### 色彩模式
+
+在Android中，常用的色彩模式有RGB和YUV两大类，RGB相对来说比较简单也容易理解，R表示红色Red，G表示绿色Green，B表示蓝色Blue，三个颜色通道叠加后可以组成各种各样的颜色；YUV来源于RGB，Y表示亮度，UV表示色度，也就是像素的颜色，YUV细分的话有Y'UV，YUV，YCbCr，YPbPr等格式，目前在计算机上使用的主要是YCbCr，因此说起YUV时主要指的是YCbCr（本文后续均称YUV），Cb表示蓝色浓度偏移量，Cr表示红色浓度偏移量。
+
+##### RGB
+
+因此RGB比较好理解，因此我们先来介绍下android.graphics.Bitmap的Config枚举中定义的几个颜色通道
+
+- RGB_565：每个像素点由2个字节（16位）组成，其中前5位表示红色，中间16为表示绿色，后5位表示蓝色
+
+- ARGB_4444：每个像素点由2个字节（16位）组成，其中前4位为透明度(Alpha)，后面4位为红色，接着4位为绿色，最后4位蓝色。由于图像质量低，目前已被标记为弃用
+
+- ARGB_8888：每个像素点由4个字节（32位）组成，组成方式和ARGB_4444类似，只是每个变量均有8位
+
+除了以上三种之外，android.graphics.PixelFormat中还有一种常见的RGB模式
+
+- RGB_888：每个像素点由3个字节（24位）组成，红绿蓝各占8位
+
+##### YUV
+
+YUV模式是利用人眼对亮度敏感而对色度相对不敏感的特点，通过缩减色度采样以减少数据量，并且图像质量不会明显下降的色彩模式，其在采样时会保留每个像素的Y分量，但会适当丢弃UV分量，数据量通常会比RGB要小，因此常用于视频传输。YUV按照采样方式通常分为YUV444、YUV422、YUV420、YUV411，按照存储方式可分为Planar、Packed、SemiPlanar，而Y、U、V每个通道变量通常可以为8位、10位、16位，不同的组合方式也使YUV出现了各种各样的类型。
+
+采样模式
+
+- YUV444：没有缩减色度采样，每4个像素中有4个Y分量、4个U分量、4个V分量；平均每个像素3个字节（24位），相比于RGB几乎没有压缩
+
+- YUV422：每4个像素中有4个Y分量、2个U分量、2个V分量，在采样时相邻两个像素一个丢弃U分量，一个丢弃V分量；平均每个像素2个字节（16位）
+
+- YUV420：每4个像素中有4个Y分量、1个U分量、1个V分量，在采样时相邻两个元素丢弃一个U分量，下一行的该位置的两个元素丢弃一个V分量；平均每个像素大小为1.5个字节（12位）
+
+- YUV411：和YUV420一样，每4个像素中有4个Y分量、1个U分量、1个V分量，在采样时每行相邻4个元素丢弃3个U分量和3个V分量；大小和YUV420相同，使用该模式的很少因此后面不再赘述
+
+存储方式
+
+- Packed：连续存储每个像素点的Y、U、V分量，丢弃的分量不存储
+    - YUV422形如YUYV YUYV YUYV YUYV
+    - YUV420形如YUYYUY YVYYVY
+- Planar：先存储所有像素点的Y分量，再存储所有像素点的U分量，最后存储所有像素点的V分量，
+    - YUV422形如YYYYYYYY UUUU VVVV 
+    - YUV420形如YYYYYYYY UU VV
+- SemiPlanar：先存储所有像素点的Y分量，再交错存储U、V分量
+    - YUV422形如YYYYYYYY UVUVUVUV
+    - YUV420形如YYYYYYYY UVUV
+
+PS：微软文档中只看到了Planar和Packed，Android中有见到SemiPlanar，出处暂时不得而知，这里暂时将其加入到存储模式分类中
+
+###### YUV色彩模式汇总
+
+色彩模式 | 采样方式 | 存储方式 | 单通道占据位数 | 示意
+:-:|:-:|:-:|:-:|:-:
+AYUV | 4:4:4 | Packed | 8
+Y410 | 4:4:4 | Packed | 10
+Y416 | 4:4:4 | Packed | 16
+YUY2 | 4:2:2 | Packed | 8
+Y210 | 4:2:2 | Packed | 10
+Y216 | 4:2:2 | packed | 16
+P210 | 4:2:2 | Planar | 10
+P216 | 4:2:2 | Planar | 16
+I422(YUV422P) | 4:2:2 | Planar | 8 | YYYY UU VV
+YV16 | 4:2:2 | Planar | 8 | YYYY VV UU
+NV16(YUV422SP) | 4:2:2 | SemiPlanar | 8 | YYYY UV UV
+NV61 | 4:2:2 | SemiPlanar | 8 | YYYY VU VU
+NV11 | 4:1:1 | Planar | 8
+P010 | 4:2:0 | Planar | 10
+P016 | 4:2:0 | Planar | 16
+YU12(I420/YUV420P) | 4:2:0 | Planar | 8 | YYYYYYYY UU VV
+YV12 | 4:2:0 | Planar | 8 | YYYYYYYY VV UU
+NV12(YUV420SP) | 4:2:0 | SemiPlanar | 8 | YYYYYYYY UV UV
+NV21 | 4:2:0 | SemiPlanar | 8 | YYYYYYYY VU VU
+
+##### 小结
+
+在android.media.MediaCodecInfo中的CodecCapabilities定义了很多硬编解码时需要用到的RGB和YUV色彩模式，了解了以上RGB和YUV知识后，再看CodecCapabilities中的色彩模式定义应该也不会那么陌生了。
