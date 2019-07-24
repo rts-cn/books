@@ -144,7 +144,7 @@ convert -gravity center -background white -extent 1200x700 autotools.png autotoo
 
 ## 发布流程
 
-以《源代码分析》为例。在当前版本上开发，如当前版本为5，发布时，更新HISTORY.md，编译，Commit，并打上Tag，如`src5`。然后就可以将`Makefile`中的`VER`改成6了。
+以《源代码分析》为例。在当前版本上开发，如当前版本为5，发布时，更新HISTORY.md，更新header.tex里的发布日期和版次，编译，Commit，并打上Tag，如`src5`。然后就可以将`Makefile`中的`VER`改成6了。
 
 如果在使用过程中发现版本5中的错误需要更新，则基于`src5`开出一个临时分支，修改，提交，打上Tag `src5.1`，发布。然后将该分支合并到`master`分支，并删除临时分支。
 
