@@ -5,7 +5,7 @@
 * 《FreeSWITCH案例大全》 fsbook-case-study
 * 《FreeSWITCH参考手册》 fsbook-references
 
-源文件使用Markdown格式，排版使用Pandoc和Latex。参见[《我在Mac上的写作工具链》](http://mp.weixin.qq.com/s?__biz=MjM5MzIwMzExMg==&mid=222341648&idx=1&sn=1a6c4c69e57194153080050b352b8d2e&mpshare=1&scene=1&srcid=1019tXeqPF7qSccOsyBM0GK7#rd)。
+源文件使用Markdown格式，排版使用Pandoc和Latex。参见[《我在Mac上的写作工具链》](http://mp.weixin.qq.com/s?__biz=MjM5MzIwMzExMg==&mid=222341648&idx=1&sn=1a6c4c69e57194153080050b352b8d2e&mpshare=1&scene=1&srcid=1019tXeqPF7qSccOsyBM0GK7#rd)以及[《技术图书排版》](https://github.com/seven1240/latex/tree/master/pdf)。
 
 关于Markdown格式请参考已有的内容。欢迎大家配置好自己的Pandoc环境，我们推荐使用我们的`docker`镜像生成PDF，这样可以检查自己的Markdown语法等。但配置不起来也没什么问题。我们会有专人负责格式。
 
