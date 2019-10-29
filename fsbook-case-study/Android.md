@@ -1,19 +1,23 @@
 # FreeSWITCH与Android终端的通信
 
-### 前言
+## 目录
 
----
+- 前言
+- 基础知识
+    - Android SIP开源库介绍
+    - BareSIP
+    - 色彩模式和视频编解码
+- 应用技术
 
+## 前言
 
 FreeSWITCH是软交换平台系统，Android是终端设备的操作系统，表面上看，两者并没有直接联系，是完全独立两个系统。然而，FreeSWITCH近年来发展迅速，已经成为主流的电话软交换解决方案；而Android在占据了超过80%智能手机市场份额的同时，由于其高度的开源和可扩展性，也在各类终端设备上（平板、电视、车载、可穿戴、机器人、游戏机...）迅速普及开来。因此，以Android操作系统为基础开发SIP终端可谓是大势所趋，Android与FreeSWITCH之间如何进行音视频通信是FreeSWITCH终端开发人员所必须要面对的问题。
 
-FreeSWITCH是基于SIP协议的软交换平台，在Android设备上我们也需要基于SIP协议开发终端应用以和FreeSWITCH进行通信。但是作为普通的开发者，从上层界面到底层SIP协议来编写一个软电话应用，不仅工作量大，而且也比较困难，因此，我们完全可以借鉴当前比较好的开源SIP用户端库，再基于此编写Android软电话应用，下面先简单介绍和对比下当前可用于Android系统的SIP开源库。
+FreeSWITCH是基于SIP协议的软交换平台，在Android设备上我们也需要基于SIP协议开发终端应用以和FreeSWITCH进行通信。但是作为普通的开发者，从上层界面到底层SIP协议来编写一个软电话应用，不仅工作量大，而且也比较困难，门槛较高，一般开发者很难完成，因此，本书的重点是讲解如何借鉴和集成当前比较好的各类SIP相关的开源库，再基于此编写Android软电话应用。
 
+## 第一章 基础知识
 
 ### Android SIP开源库介绍
-
----
-
 
 ##### Android原生API
 
@@ -61,8 +65,6 @@ Android开源项目：
 
 
 ### BareSIP
-
----
 
 
 由于开源栈较多，就不详细介绍了，感兴趣的可以自行研究，我们这里主要描述下如何基于BareSIP编写Android软电话应用。
@@ -261,9 +263,6 @@ app
 ```
 
 ### 色彩模式和视频编解码
-
----
-
 
 FreeSWITCH可以使用视频通信功能，一个简单的视频会议的处理流程如下：
 
@@ -479,3 +478,5 @@ libavcodec/opus_pvq.c:498:9: error: expected identifier or '(' before numeric co
 make install
 ```
 执行之后可以在ffmpeg-4.1.3/android/armeabi-v7a/lib目录下看到编译好的静态库
+
+## 第二章 应用技术
