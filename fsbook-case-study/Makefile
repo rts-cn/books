@@ -29,7 +29,7 @@ SRC=meta.md \
 	chapterX.md \
 	chapter-client.md \
 	Android.md \
-	postface.md
+	../fsbook-src/postface.md
 
 .PHONY html: $(SRC)
 	cp -R images out/
@@ -97,12 +97,14 @@ pdf: $(SRC) out/preface.tex cover.tex cover-back.tex
 
 	$(PANDOC) -s --toc --variable documentclass="report" \
 	--variable book="FreeSWITCH案例大全" \
-	--template cover.tex \
+	--template ../fsbook-src/cover.tex \
 	--number-sections \
 	--pdf-engine=xelatex \
+	--include-before=header.tex \
+	--include-in-header=ncover.tex \
 	--include-before-body=out/preface.tex \
 	--include-after-body=cover-back.tex \
-	-o out/$(NAME)-$(VER).pdf \
+	-o out/FreeSWITCH案例大全-标准版-$(VER).pdf \
 	$(SRC)
 
 mobile: $(SRC) out/preface.tex cover.tex cover-back.tex
@@ -116,7 +118,7 @@ mobile: $(SRC) out/preface.tex cover.tex cover-back.tex
 	--include-in-header=xcover.tex \
 	--include-before-body=out/preface.tex \
 	--include-after-body=cover-back.tex \
-	-o out/FreeSWITCH案例大全-m$(VER).pdf \
+	-o out/FreeSWITCH案例大全-移动版-$(VER).pdf \
 	$(SRC)
 
 mobile-test: $(SRC) out/preface.tex cover.tex cover-back.tex
