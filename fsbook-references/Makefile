@@ -13,11 +13,12 @@ SVG = $(IMGSRC:%.msc=%.svg)
 INCSCAPE = /Applications/Inkscape.app/Contents/Resources/bin/inkscape
 # INCDPI = -d 300
 VER=0
-NAME=fsbook-references
+NAME=FreeSWITCH参考手册
 
 all: html pdf
 
-SRC=chapter1.md \
+SRC=meta.md \
+	chapter1.md \
 	chapter2.md \
 	chapter3.md \
 	chapter4.md \
@@ -80,7 +81,6 @@ out/%.docx: %.md
 pdfs: $(PDF)
 
 out/preface.tex: preface.md
-
 	$(PANDOC) -s --toc --variable documentclass="report" \
 	--template ../templates/preface.tex \
 	-o out/preface.tex preface.md
@@ -93,6 +93,7 @@ pdf: $(SRC) out/preface.tex cover.tex cover-back.tex
 	--template cover.tex \
 	--number-sections \
 	--pdf-engine=xelatex \
+	--include-in-header=ncover.tex \
 	--include-before-body=out/preface.tex \
 	--include-after-body=cover-back.tex \
 	-o out/$(NAME)-$(VER).pdf \
@@ -139,3 +140,13 @@ imgs: $(PNG)
 dotimgs:
 	cd images && make dotpng
 
+
+cover:
+	$(PANDOC) -s --variable documentclass="report" \
+	--template cover.tex \
+	--number-sections \
+	--variable mobile=true \
+	--pdf-engine=xelatex \
+	--include-in-header=xcover.tex \
+	-o out/cover.pdf \
+	meta.md
