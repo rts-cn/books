@@ -1,5 +1,7 @@
 # fsbooks
 
+本仓库图书使用[CC-BY-NC-ND](https://github.com/rts-cn/books/blob/master/LICENSE)授权协议。
+
 集体写一本书，这真是一件令人振奋的事情。如果一本不过瘾，那就写两本。
 
 * 《FreeSWITCH案例大全》 fsbook-case-study
@@ -241,4 +243,4 @@ pandoc -o out/fsbook-case-study.html  -V book="FreeSWITCH案例大全" -V title=
 
 ## 权益声明
 
-每个人的作品自己有版权。如果以后书能大卖，或许每个人都能获得一些收益，但是，不要指望写书挣钱，把这个过程更多的看作是一种贡献。与其计算每个人应该分多少钱，不如我们一起支持一个开源项目或捐赠一个公益事业。
+本仓库图书使用[CC-BY-NC-ND](https://github.com/rts-cn/books/blob/master/LICENSE)授权协议。
