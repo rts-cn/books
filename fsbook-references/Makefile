@@ -23,7 +23,7 @@ SRC=meta.md \
 	chapter3.md \
 	chapter4.md \
 	chapterX.md \
-	postface.md
+	../fsbook-case-study/postface.md
 
 .PHONY html: $(SRC)
 	cp -R images out/
