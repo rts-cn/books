@@ -19,6 +19,7 @@ all: html pdf
 
 SRC=meta.md \
 	chapter1.md \
+	chapter-moyan.md \
 	chapter-alwaysrun.md \
 	section-wsl.md \
 	chapter2.md \
